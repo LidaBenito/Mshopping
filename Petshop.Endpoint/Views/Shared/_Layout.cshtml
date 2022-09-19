@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<title>پت شاپ</title>
+<meta charset="iso-8859-1">
+<link href="~/css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="header"> <a href="#" id="logo"><img src="~/images/logo.gif" width="310" height="114" alt=""></a>
+  <ul class="navigation">
+    <li class="active"><a href="index.html">صفحه اول</a></li>
+    <li><a href="petmart.html">مارکت</a></li>
+    <li><a href="about.html">درباره ما</a></li>
+    <li><a href="blog.html">اخبار</a></li>
+    <li><a href="petguide.html">درباره حیوانات</a></li>
+    <li><a href="contact.html">تماس با ما</a></li>
+  </ul>
+</div>
+<div id="body">
+  <div class="banner">&nbsp;</div>
+  <div id="content">
+      @RenderBody()
+    <div id="sidebar">
+      <div class="search">
+        <input type="text" name="s" value="جستجو">
+        <button>&nbsp;</button>
+        <label for="articles">
+          <input type="radio" id="articles">
+          مفاله ها</label>
+        <label for="products">
+          <input type="radio" id="products" checked>
+          محصولات</label>
+      </div>
+      <partial name="_Sidebar" />
+    </div>
+  </div>
+  <div class="featured">
+            <partial name="_Featured" />
+  </div>
+</div>
+<div id="footer">
+        <partial name="_Footer" />
+
+</div>
+</body>
+</html>
