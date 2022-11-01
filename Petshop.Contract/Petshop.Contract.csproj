@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Petshop.Core\Petshop.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Categories\" />
+  </ItemGroup>
+
 </Project>
