@@ -2,6 +2,7 @@
 using Petshop.Contract.Products;
 using Petshop.Core.Products;
 using Petshop.Infra.Common;
+using Petshop.Utility.Paginations;
 
 namespace Petshop.Infra.Products
 {
@@ -13,6 +14,20 @@ namespace Petshop.Infra.Products
         {
             this.dbContext = dbContext;
         }
-        public List<Product> Products() => dbContext.Products.Include(product => product.Category).ToList();
+        public PagedData<Product> Products(int pageNumber, int pageSize) {
+            var result = new PagedData<Product>
+            {
+                PageInfo = new PageInfo
+                {
+                    PageNumber = pageNumber,
+                    PageSize = pageSize
+                }
+            };
+            result.Data= dbContext.Products.Include(product => product.Category).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            result.PageInfo.TotalCount = dbContext.Products.Count();
+
+            return result;
+        }
+        
     }
 }

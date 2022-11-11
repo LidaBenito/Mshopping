@@ -1,18 +1,20 @@
-﻿@model List<Product>
+﻿@model PagedData<Product>
 <div class="content">
+    <div class="row">
+
     <ul>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Data)
         {
-            
-        <li>
-            <a href="#">
-               @* @item.Image*@
-                <img src="~/images/newimgs/51t9WZ3GNiL.jpg" width="114" height="160" alt=""></a>
-            <h2>@item.Name</h2>
-            <h6>@item.Price.ToString("c")</h6>
-            <p>@item.Description<a class="more" href="#">View all</a></p>
-        </li>
-        }
+
+                @Html.Partial("PartialIndexsummery",item);
+        }.
       
     </ul>
+    </div>
+    
+    <div class="btn-group" page-model="@Model.PageInfo" page-action="Index" 
+    page-classes-enable="true" page-class="btn "
+    page-class-normal="btn-outline-dark" page-class-selected="btn-success">
+
+    </div>
 </div>

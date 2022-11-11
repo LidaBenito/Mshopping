@@ -9,16 +9,16 @@ namespace Petshop.Endpoint.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ProductRepository productRepository;
-
+        private int pageSize = 2;
         public HomeController(ILogger<HomeController> logger, ProductRepository productRepository)
         {
             _logger = logger;
             this.productRepository = productRepository;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageNumber=1)
         {
-            var products = productRepository.Products();
+            var products = productRepository.Products(pageNumber,pageSize);
             return View(products);
         }
 

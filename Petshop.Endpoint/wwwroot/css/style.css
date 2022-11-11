@@ -76,6 +76,7 @@ body {
 #body div#content .content {
 	float:right;
 	width:640px;
+	text-align:center;
 	margin-right:20px;
 	background-image:none;
 	height:auto;
