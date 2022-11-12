@@ -5,7 +5,8 @@ namespace Petshop.Contract.Products
 {
     public interface ProductRepository
     {
-        PagedData<Product> Products(int pageNumber,int pageSize);
+        PagedData<Product> GetAllProducts(int pageNumber,int pageSize,string category);
+        List<string> GetAllCategories();
 
 
     }

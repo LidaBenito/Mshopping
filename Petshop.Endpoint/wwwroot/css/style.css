@@ -12,6 +12,7 @@ body {
 	height:72px;
 	position:relative;
 	margin:0 auto;
+	text-align:right;
 }
 #header a#logo {
 	position:relative;
@@ -311,7 +312,10 @@ body {
 	color:#7f7154;
 }
 #body #content .search button {
-	background:url("../images/buttons.gif");
+	background-color:#d7ce2e;
+	border-bottom-color:#7F7154;
+	border-right-color:#7F7154;
+	text-align:center;
 	background-position: 0 -270px;
 	background-repeat:no-repeat;
 	width:77px;
@@ -320,10 +324,14 @@ body {
 	margin:5px 5px 5px 0;
 	cursor:pointer;
 }
+	#body #content .search button:hover {
+		background-color: #e6f843;
+		border-inline-color: #686b4b;
+	}
 #body #content .search label {
-	font-size:14px;
-	font-family:"Myriad Pro";
-	color:#ffffff;
+	font-size: 14px;
+	font-family: "Myriad Pro";
+	color: #ffffff;
 }
 #body #content .search label input {
 	margin: 0 10px 0 10px;

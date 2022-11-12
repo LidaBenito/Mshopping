@@ -1,19 +1,27 @@
-﻿@model PagedData<Product>
+﻿@model ProductIndexViewModel
 <div class="content">
+    <form class="mr-3 position-relative" method="get"  asp-controller="Home" asp-action="Index">
+    <div class="search">
+            <input type="search" placeholder="جستجو" name="category">
+        <button class="searchBtn">&nbsp;</button>
+     
+    </div>
+    </form>
     <div class="row">
+       
 
     <ul>
-        @foreach (var item in Model.Data)
+        @foreach (var item in Model.Data.Data)
         {
 
                 @Html.Partial("PartialIndexsummery",item);
-        }.
+        }
       
     </ul>
     </div>
     
-    <div class="btn-group" page-model="@Model.PageInfo" page-action="Index" 
-    page-classes-enable="true" page-class="btn "
+    <div class="btn-group m-1" page-model="@Model.Data.PageInfo" page-action="Index"
+         page-classes-enable="true" page-class="btn "
     page-class-normal="btn-outline-dark" page-class-selected="btn-success">
 
     </div>

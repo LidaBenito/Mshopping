@@ -34,11 +34,16 @@ app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();
-        
+
 app.UseEndpoints(endpoint =>
 
-{ endpoint.MapControllerRoute("pagination","/{controller=home}/{action=index}/Page{pageNumber}");
+{
+    endpoint.MapControllerRoute("pagination", "/{controller=home}/{action=index}/{category}/Page{pageNumber}");
+
+    endpoint.MapControllerRoute("pagination", "/{controller=home}/{action=index}/Page{pageNumber}");
+
+    endpoint.MapControllerRoute("pagination", "/{controller=home}/{action=index}/{category}");
     endpoint.MapDefaultControllerRoute();
 }
-    ); 
+    );
 app.Run();

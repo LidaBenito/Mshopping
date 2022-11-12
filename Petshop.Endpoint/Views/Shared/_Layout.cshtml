@@ -1,10 +1,13 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<title>پت شاپ</title>
+<title>پت شاپ
+		
+</title>
+    <link rel="icon" type="image/x-icon" href="~/images/favicon.ico">
 <meta charset="iso-8859-1">
 
-    <link href="~/css/style.css" rel="stylesheet" type="text/css">
+    <link href="~/css/style.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap.css" />
 </head>
 <body>
@@ -23,16 +26,7 @@
   <div id="content">
       @RenderBody()
     <div id="sidebar">
-      <div class="search">
-        <input type="text" name="s" value="جستجو">
-        <button>&nbsp;</button>
-        <label for="articles">
-          <input type="radio" id="articles">
-          مفاله ها</label>
-        <label for="products">
-          <input type="radio" id="products" checked>
-          محصولات</label>
-      </div>
+        <vc:category-side-box></vc:category-side-box>
       <partial name="_Sidebar" />
     </div>
   </div>

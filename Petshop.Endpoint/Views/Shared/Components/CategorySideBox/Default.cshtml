@@ -1,0 +1,25 @@
+﻿@model CategorySideBoxViewModel
+@if (Model.routeCategory == "")
+{
+	<a class="btn btn-block btn-success"  asp-action="Index" 
+   asp-controller="Home" asp-route-category="" asp-route-pageNumber="1">Home</a>
+}
+else{
+	<a class="btn btn-block btn-dark" asp-action="Index"
+   asp-controller="Home" asp-route-category="" asp-route-pageNumber="1">Home</a>
+}
+@foreach(var item in Model.Data){
+	@if(Model.routeCategory == item){
+		<a class="btn btn-block btn-success"
+   asp-action="Index"
+   asp-controller="Home" asp-route-category="@item" asp-route-pageNumber="1">@item</a>
+	}
+	else{
+		<a class="btn btn-block btn-dark" 
+	asp-action="Index" 
+	asp-controller="Home" asp-route-category="@item" asp-route-pageNumber="1">@item</a>
+
+	
+	}
+	
+} 

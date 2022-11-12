@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Petshop.Contract.Products;
 using Petshop.Endpoint.Models;
+using Petshop.Endpoint.Models.Products;
 using System.Diagnostics;
 
 namespace Petshop.Endpoint.Controllers
@@ -16,10 +17,14 @@ namespace Petshop.Endpoint.Controllers
             this.productRepository = productRepository;
         }
 
-        public IActionResult Index(int pageNumber=1)
+        public IActionResult Index(string category = "",int pageNumber=1)
         {
-            var products = productRepository.Products(pageNumber,pageSize);
-            return View(products);
+            var viewModel = new ProductIndexViewModel
+            {
+                Search = category,
+                Data = productRepository.GetAllProducts(pageNumber, pageSize, category)
+            };
+            return View(viewModel);
         }
 
         public IActionResult Privacy()
