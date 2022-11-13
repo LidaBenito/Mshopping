@@ -1,37 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Petshop.Contract.Products;
-using Petshop.Endpoint.Models.Products;
+using Petshop.Contract.Categories;
+using Petshop.Endpoint.Models.Categories;
 
 namespace Petshop.Endpoint.Components
 {
     public class CategorySideBoxViewComponent : ViewComponent
     {
-        private readonly ProductRepository productRepository;
+        private readonly CategoryRepository categoryRepository;
 
-        public CategorySideBoxViewComponent(ProductRepository productRepository)
+        public CategorySideBoxViewComponent(CategoryRepository categoryRepository)
         {
-            this.productRepository = productRepository;
+            this.categoryRepository = categoryRepository;
         }
         public IViewComponentResult Invoke()
         {
-            var viewModel = new CategorySideBoxViewModel();
-            if (RouteData?.Values["category"] != null)
+            var viewModel = new CategorySideBoxViewModel
             {
-                object? routeData = RouteData?.Values["category"];
-                viewModel = new CategorySideBoxViewModel
-                {
-                    Data = productRepository.GetAllCategories(),
-                    routeCategory = routeData.ToString()
-                };
-                return View(viewModel);
+                categories = categoryRepository.GetAllCategories(),
 
-            }
-            viewModel = new CategorySideBoxViewModel
-            {
-                Data = productRepository.GetAllCategories(),
-                routeCategory = ""
             };
-            return View(viewModel);
+            if (RouteData?.Values.ContainsKey("category") == true)
+            {
+                viewModel.currentCategory = RouteData.Values["category"].ToString();
+                    
+            }
+                return View(viewModel);
         }
     }
 }

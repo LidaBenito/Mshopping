@@ -12,6 +12,6 @@ namespace Petshop.Infra.Categories
         {
             this.dbContext = dbContext;
         }
-        public List<Category> Categories() => dbContext.Categories.ToList();
+        public List<Category> GetAllCategories() => dbContext.Categories.ToList();
     }
 }

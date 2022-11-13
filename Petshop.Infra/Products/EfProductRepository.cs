@@ -16,11 +16,10 @@ namespace Petshop.Infra.Products
             this.dbContext = dbContext;
         }
 
-        public List<string> GetAllCategories() => dbContext.Products.Select(product => product.Category.Name).Distinct().ToList();
 
 
         public PagedData<Product> GetAllProducts(int pageNumber, int pageSize,string category) {
-            var result = new PagedData<Product>
+            PagedData<Product> result = new ()
             {
                 PageInfo = new PageInfo
                 {

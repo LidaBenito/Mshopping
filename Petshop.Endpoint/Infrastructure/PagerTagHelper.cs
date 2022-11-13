@@ -21,6 +21,7 @@ namespace Petshop.Endpoint.Infrastructure
         public  ViewContext  ViewContext{ get; set; }
         public PageInfo PageModel{ get; set; }
         public string  PageAction{ get; set; }
+        public Dictionary<string,object> PageUrlValue { get; set; }
         public bool PageClassesEnable { get; set; } = false;
         public string PageClass { get; set; }
         public string PageClassSelected { get; set; }

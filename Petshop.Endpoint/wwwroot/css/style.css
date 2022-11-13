@@ -506,11 +506,12 @@ body {
   
   
   
- /** Start Sidebar style **/ 
-  #body #content #sidebar {
-	float:right;
-	width:300px;
-	background-image:none;
+ /** Start Sidebar style **/
+
+#body #content #sidebar {
+	float: right;
+	width: 300px;
+	background-image: none;
 }
 #body #content #sidebar div#section {
 	background:url("../images/bg-sidebar-heading.gif");
