@@ -7,6 +7,11 @@
     </a>
     <h2>@Model.Name</h2>
     <h6>@Model.Price.ToString("c")</h6>
+    <form asp-controller="Basket" asp-action="AddToBasket" method="post">
+        <input type="hidden" value="@Model.Id" name="productId"/>
+        <input type="hidden" value="Home/Index" name="returnUrl"/>
+        <input type="submit" value="اضافه به سبد خرید" />
+    </form>
     <p>@Model.Description<a class="more" href="#">View all</a></p>
 </li>
         

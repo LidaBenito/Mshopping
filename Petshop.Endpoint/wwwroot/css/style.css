@@ -12,11 +12,12 @@ body {
 	height:72px;
 	position:relative;
 	margin:0 auto;
-	text-align:right;
+	
 }
 #header a#logo {
 	position:relative;
 	z-index:100;
+	text-align:left;
 }
 #header a#logo img {
 	border:0;
