@@ -14,4 +14,9 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Petshop.Contract\Petshop.Contract.csproj" />
+    <ProjectReference Include="..\Petshop.Core\Petshop.Core.csproj" />
+  </ItemGroup>
+
 </Project>

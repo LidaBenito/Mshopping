@@ -1,0 +1,21 @@
+﻿@model BasketViewModel
+
+<table>
+<tr>
+	<td>نام</td>
+	<td>قیمت</td>
+	<td>تعداد</td>
+</tr>	
+
+@foreach(var item in Model.Basket.Items){
+	<tr>
+		<td>@item.Product.Name</td>
+		<td>@item.Product.Price</td>
+		<td>@item.Quantity</td>
+	</tr>
+}
+<tr>
+	<td > جمع کل :</td>
+	<td colspan="2">@Model.Basket.TotalPrice()</td>
+</tr>
+</table>

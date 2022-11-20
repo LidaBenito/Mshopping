@@ -1,24 +1,28 @@
-﻿<div class="content">
+﻿@model ProductIndexViewModel
+<div class="content">
+    <form class="mr-3 position-relative" method="get"  asp-controller="Home" asp-action="Index">
+    <div class="search">
+            <input type="search" placeholder="جستجو" name="category">
+        <button class="searchBtn">&nbsp;</button>
+     
+    </div>
+    </form>
+    <div class="row">
+       
+
     <ul>
-        <li>
-            <a href="#"><img src="images/puppy.jpg" width="114" height="160" alt=""></a>
-            <h2>What they need</h2>
-            <p>Mirum est notare quam littera gothica, quam nunc putamus parum clara m, ant epo suerit li tterar. <a class="more" href="#">View all</a></p>
-        </li>
-        <li>
-            <a href="#"><img src="images/cat.jpg" width="114" height="160" alt=""></a>
-            <h2>Something good</h2>
-            <p>Gothica, quam nun c putamus parum claram, anteposuerit litterarum formas humani tatis per seacula. <a class="more" href="#">View all</a></p>
-        </li>
-        <li>
-            <a href="#"><img src="images/koi.jpg" width="114" height="160" alt=""></a>
-            <h2>Kinds of Fish</h2>
-            <p>Quam nunc putamus parum claram, antep osuerit litter arum formas humanitatis per seacula quarta. <a class="more" href="#">View all</a></p>
-        </li>
-        <li>
-            <a href="#"><img src="images/bird.jpg" width="114" height="160" alt=""></a>
-            <h2>Fun birds</h2>
-            <p>Mirum est notare quam littera gothica , quam nunc putamus parum claram, anteposuerit. <a class="more" href="#">View all</a></p>
-        </li>
+        @foreach (var item in Model.Data.Data)
+        {
+
+                @Html.Partial("PartialIndexsummery",item);
+        }
+      
     </ul>
+    </div>
+    
+    <div class="btn-group m-1" page-model="@Model.Data.PageInfo" page-action="Index"
+         page-classes-enable="true" page-class="btn "
+    page-class-normal="btn-outline-dark" page-class-selected="btn-success">
+
+    </div>
 </div>

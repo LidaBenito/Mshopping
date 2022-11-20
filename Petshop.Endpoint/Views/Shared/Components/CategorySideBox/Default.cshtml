@@ -1,0 +1,26 @@
+﻿@using Petshop.Endpoint.Models.Categories
+@model CategorySideBoxViewModel
+@if (Model.currentCategory == "")
+{
+	<a class="btn btn-block btn-success"  asp-action="Index" 
+   asp-controller="Home" asp-route-category="" asp-route-pageNumber="1">Home</a>
+}
+else{
+	<a class="btn btn-block btn-dark" asp-action="Index"
+   asp-controller="Home" asp-route-category="" asp-route-pageNumber="1">Home</a>
+}
+@foreach(var item in Model.categories){
+	@if(Model.currentCategory == item.Name){
+		<a class="btn btn-block btn-success"
+   asp-action="Index"
+   asp-controller="Home" asp-route-category="@item.Name" asp-route-pageNumber="1">@item.Name</a>
+	}
+	else{
+		<a class="btn btn-block btn-dark" 
+	asp-action="Index" 
+	asp-controller="Home" asp-route-category="@item.Name" asp-route-pageNumber="1">@item.Name</a>
+
+	
+	}
+	
+} 

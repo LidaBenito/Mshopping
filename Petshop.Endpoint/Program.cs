@@ -1,17 +1,26 @@
-using Microsoft.AspNetCore.Mvc.ApplicationParts;
+using Microsoft.EntityFrameworkCore;
+using Petshop.Contract.Categories;
+using Petshop.Contract.Products;
+using Petshop.Infra.Categories;
+using Petshop.Infra.Common;
+using Petshop.Infra.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddMvc();
+var cnn = builder.Configuration.GetConnectionString("BentiStore");
+builder.Services.AddDbContext<BentiShopContext>(options => options.UseSqlServer(cnn));
+builder.Services.AddScoped<ProductRepository, EfProductRepository>();
+builder.Services.AddScoped<CategoryRepository, EfCategoryRepository>();
+builder.Services.AddMemoryCache();
+builder.Services.AddSession();
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -19,14 +28,22 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseDeveloperExceptionPage();
 app.UseStatusCodePages();
-app.UseMvc();
+
+app.UseSession();
 
 app.UseRouting();
 
-app.UseAuthorization();
+app.UseAuthorization(); 
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoint =>
 
+{
+    endpoint.MapControllerRoute("pagination", "/{controller=home}/{action=index}/{category}/Page{pageNumber}");
+
+    endpoint.MapControllerRoute("pagination", "/{controller=home}/{action=index}/Page{pageNumber}");
+
+    endpoint.MapControllerRoute("pagination", "/{controller=home}/{action=index}/{category}");
+    endpoint.MapDefaultControllerRoute();
+}
+    );
 app.Run();
