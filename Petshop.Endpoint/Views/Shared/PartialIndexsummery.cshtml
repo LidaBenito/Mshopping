@@ -10,7 +10,7 @@
     <form asp-controller="Basket" asp-action="AddToBasket" method="post">
         <input type="hidden" value="@Model.Id" name="productId"/>
         <input type="hidden" value="Home/Index" name="returnUrl"/>
-        <input type="submit" value="اضافه به سبد خرید" />
+        <input class="btn btn-warning" type="submit" value="اضافه به سبد خرید" />
     </form>
     <p>@Model.Description<a class="more" href="#">View all</a></p>
 </li>

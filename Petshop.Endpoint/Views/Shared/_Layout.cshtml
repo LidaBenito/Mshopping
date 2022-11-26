@@ -7,13 +7,14 @@
     <link rel="icon" type="image/x-icon" href="~/images/favicon.ico">
 <meta charset="iso-8859-1">
 
-    <link href="~/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="~/css/style.css" rel="stylesheet" type="text/css" asp-append-version="true" />
+    <link href="~/css/NewStyle.css" rel="stylesheet" type="text/css" asp-append-version="true" />
     <link rel="stylesheet" href="~/bootstrap/css/bootstrap.css" />
 </head>
 <body>
 <div id="header"> <a href="#" id="logo"><img src="~/images/logo.gif" width="310" height="114" alt=""></a>
   <ul class="navigation">
-    <li class="active"><a href="index.html">صفحه اول</a></li>
+            <li class="active"><a asp-action="Index" asp-controller="Home">صفحه اول</a></li>
     <li><a href="petmart.html">مارکت</a></li>
     <li><a href="blog.html">اخبار</a></li>
     <li><a href="petguide.html">درباره حیوانات</a></li>
@@ -27,7 +28,30 @@
       @RenderBody()
     <div id="sidebar">
         <vc:category-side-box></vc:category-side-box>
-      <partial name="_Sidebar" />
+     @* <partial name="_Sidebar" />*@
+                <div class="section">
+                    <ul class="navigation">
+                        <li class="active"><a href="#">راهنمای پت شاپ</a></li>
+                        <li><a href="#">تخفیفات</a></li>
+                    </ul>
+                    <div class="aside">
+                        <div>
+                            <div>
+                                <ul>
+                                    <li><a href="#">لوارم جانبی  </a><a class="more" href="#">ورود</a> </li>
+                                    <li><a href="#">لوازم شستشو</a> <a class="more" href="#">ورود</a></li>
+                                    <li><a href="#">غذا</a> <a class="more" href="#">ورود</a></li>
+                                    <li><a href="#">ویتامین ها</a><a class="more" href="#">ورود</a></li>
+                                    <li><a href="#">لوازم اصلی</a><a class="more" href="#">ورود</a></li>
+                                    <li><a href="#">لوازم بازی و تربیتی</a> <a class="more" href="#">ورود</a></li>
+                                    <li><a href="#">تدارکات تگهداری</a> <a class="more" href="#">ورود</a></li>
+                                    <li><a href="#">کیت های اورژانس</a> <a class="more" href="#">ورود</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
     </div>
   </div>
   <div class="featured">

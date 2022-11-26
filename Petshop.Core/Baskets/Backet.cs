@@ -1,4 +1,5 @@
-﻿using Petshop.Core.Products;
+﻿using Microsoft.AspNetCore.Http;
+using Petshop.Core.Products;
 
 namespace Petshop.Core.Baskets;
 
@@ -21,9 +22,15 @@ public class Basket
             currentProduct.Quantity += quantity;
         }
     }
-    public virtual void RemoveItem(Product product) => basketItems.RemoveAll(productId => productId.Id == product.Id);
-    public virtual int TotalPrice() => basketItems.Sum(productItem => productItem.Product.Price * productItem.Quantity);
-    public void Clear() => basketItems.Clear();
+    public virtual void RemoveItem(Product product)
+    {
+        var result = basketItems.RemoveAll(c => c.Product.Id == product.Id);
+        var r = 1;
+    }
+
+
+    public int TotalPrice() => basketItems.Sum(productItem => productItem.Product.Price * productItem.Quantity);
+    public virtual void Clear() => basketItems.Clear();
 
 
     public IEnumerable<BasketItem> Items => basketItems;

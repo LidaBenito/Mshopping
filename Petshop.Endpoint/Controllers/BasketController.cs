@@ -1,58 +1,43 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Petshop.Contract.Products;
-using Petshop.Core.Baskets;
-using Petshop.Endpoint.Models.Baskets;
-using Petshop.Infra.Products;
+﻿
 
-namespace Petshop.Endpoint.Controllers
+namespace Petshop.Endpoint.Controllers;
+
+public class BasketController : Controller
 {
-    public class BasketController : Controller
+    private readonly ProductRepository productRepository;
+    private readonly Basket sessionBasket;
+
+    public BasketController(ProductRepository productRepository,Basket sessionBasket)
     {
-        private readonly ProductRepository productRepository;
-
-        public BasketController(ProductRepository productRepository)
-        {
-            this.productRepository = productRepository;
-        }
-        public IActionResult Index(string returnUrl)
-        {
-            BasketViewModel viewModel = new()
-            {
-                Basket = GetBasket(),
-                returnURL = returnUrl
-
-            };
-            return View(viewModel);
-        }
-        //[HttpPost]
-        public IActionResult AddToBasket(int productId, string returnUrl)
-        {
-            var product = productRepository.GetProduct(productId);
-            var basket = GetBasket();
-            basket.AddItem(1, product);
-            SaveBasket(basket);
-            return RedirectToAction("Index", new {returnUrl=returnUrl});
-
-        }
-
-
-
-        public IActionResult RemoveFromBasket()
-        {
-            return RedirectToAction("Index");
-
-        }
-        private Basket GetBasket()
-        {
-            var currentBasket = HttpContext.Session.GetString("Basket");
-            if (string.IsNullOrEmpty(currentBasket))
-                return new Basket();
-            return JsonConvert.DeserializeObject<Basket>(currentBasket);
-        }
-        private void SaveBasket(Basket basket)
-        {
-            HttpContext.Session.SetString("Basket", JsonConvert.SerializeObject(basket));
-        }
+        this.productRepository = productRepository;
+        this.sessionBasket = sessionBasket;
     }
+    public IActionResult Index(string returnUrl)
+    {
+        BasketViewModel viewModel = new()
+        {
+            Basket = sessionBasket,
+            returnURL = returnUrl
+
+        };
+        return View(viewModel);
+    }
+    public IActionResult AddToBasket(int productId, string returnUrl)
+    {
+        var product = productRepository.GetProduct(productId);
+        sessionBasket.AddItem(1, product);
+       return RedirectToAction("Index", new { returnUrl = returnUrl });
+
+    }
+
+
+
+    public IActionResult RemoveFromBasket(int productId, string returnUrl)
+    {
+        var products = productRepository.GetProduct(productId);
+        sessionBasket.RemoveItem(products);
+        return RedirectToAction("Index", new { returnUrl = returnUrl });
+
+    }
+    
 }

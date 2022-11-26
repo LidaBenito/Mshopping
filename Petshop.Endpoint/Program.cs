@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using Petshop.Contract.Categories;
-using Petshop.Contract.Products;
 using Petshop.Infra.Categories;
 using Petshop.Infra.Common;
 using Petshop.Infra.Products;
@@ -15,6 +14,8 @@ builder.Services.AddScoped<ProductRepository, EfProductRepository>();
 builder.Services.AddScoped<CategoryRepository, EfCategoryRepository>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<Basket>(c => SessionBasket.GetBasket(c));
 
 var app = builder.Build();
 
@@ -33,7 +34,7 @@ app.UseSession();
 
 app.UseRouting();
 
-app.UseAuthorization(); 
+app.UseAuthorization();
 
 app.UseEndpoints(endpoint =>
 

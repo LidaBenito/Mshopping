@@ -12,6 +12,7 @@ body {
 	height:72px;
 	position:relative;
 	margin:0 auto;
+	text-align:end;
 	
 }
 #header a#logo {
@@ -710,8 +711,9 @@ body {
 	display:inline-block;
 	color:#7f7154;
 	font-size:14px;
-	margin:0 0 0 10px;
+	/*margin:0 0 0 10px;*/
 	font-family:"Myriad Pro";
+	padding-right:1%;
 	width:210px;
 	/*
 	  _width:200px;
@@ -720,6 +722,7 @@ body {
 }
 #body #content #sidebar .section .aside div div ul li a:hover {
 	color:#e4a217;
+
 }
 #body #content #sidebar .section .aside div div ul li a.more {
 	width:42px;
@@ -739,7 +742,7 @@ body {
 	overflow:hidden;
 }
 #body #content #sidebar .section ul.navigation li.active {
-	float:left;
+	float:right;
 	width:140px;
 	height:30px;
 	background:url("../images/menu.gif");
@@ -747,7 +750,7 @@ body {
 	background-repeat:no-repeat;
 }
 #body #content #sidebar .section ul.navigation li {
-	float:left;
+	float:right;
 	width:140px;
 	height:30px;
 	background:url("../images/menu.gif");
@@ -1021,4 +1024,13 @@ body {
 }
 #footer #footnote .section a:hover {
 	color:#ffffff;
+}
+a .btnAdd {
+	background-color: #cfd721;
+}
+.btn-group > .btn:nth-child(n+3), .btn-group > :not(.btn-check) + .btn, .btn-group > .btn-group:not(:first-child) > .btn {
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 0;
+	border-top-left-radius: 1 !important;
+	border-bottom-left-radius:initial !important;
 }
