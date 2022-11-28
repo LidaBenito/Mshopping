@@ -16,7 +16,7 @@ namespace Petshop.Infra.Products
             new Product
             {
 
-                Description = "ghalade",
+                Description = "قلاده",
                 Name = "pro01",
                 CategoryId = 1,
                 Price = 10000000,
@@ -26,7 +26,7 @@ namespace Petshop.Infra.Products
             new Product
             {
 
-                Description = "ghaza khoshk",
+                Description = "غذای خشک",
                 Name = "pro02",
                 CategoryId = 2,
                 Price = 200000,
@@ -37,7 +37,7 @@ namespace Petshop.Infra.Products
             new Product
             {
 
-                Description = "hole",
+                Description = "حوله",
                 Name = "pro03",
                 CategoryId = 3,
                 Price = 30000,
@@ -46,7 +46,7 @@ namespace Petshop.Infra.Products
             new Product
             {
 
-                Description = "zarf",
+                Description = "ظرف آب",
                 Name = "pro04",
                 CategoryId = 2,
                 Price = 800000,
@@ -55,7 +55,7 @@ namespace Petshop.Infra.Products
             new Product
             {
 
-                Description = "ghaza conserve",
+                Description = "کنسرو",
                 Name = "pro05",
                 CategoryId = 3,
                 Price = 30000,
@@ -64,7 +64,7 @@ namespace Petshop.Infra.Products
             new Product
             {
 
-                Description = "narm konande",
+                Description = "شامپو",
                 Name = "pro06",
                 CategoryId = 3,
                 Price = 30000,
@@ -73,7 +73,7 @@ namespace Petshop.Infra.Products
             new Product
             {
 
-                Description = "kafsh",
+                Description = "کفش",
                 Name = "pro07",
                 CategoryId = 1,
                 Price = 3000000,

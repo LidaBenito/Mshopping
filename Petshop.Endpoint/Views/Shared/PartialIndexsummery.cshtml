@@ -5,13 +5,13 @@
         @* @item.Image*@
         <img src="~/images/newimgs/51t9WZ3GNiL.jpg" width="114" height="160" alt="">
     </a>
-    <h2>@Model.Name</h2>
+    <h2>@Model.Description</h2>
     <h6>@Model.Price.ToString("c")</h6>
     <form asp-controller="Basket" asp-action="AddToBasket" method="post">
         <input type="hidden" value="@Model.Id" name="productId"/>
-        <input type="hidden" value="Home/Index" name="returnUrl"/>
+        <input type="hidden" value="@ViewContext.HttpContext.Request.Path" name="returnUrl" />
         <input class="btn btn-warning" type="submit" value="اضافه به سبد خرید" />
     </form>
-    <p>@Model.Description<a class="more" href="#">View all</a></p>
+    <p> @Model.Name</p>
 </li>
         

@@ -1,12 +1,12 @@
 ﻿@using Petshop.Endpoint.Models.Categories
 @model CategorySideBoxViewModel
 
-@if (Model.currentCategory == null)
+@*@if (Model.currentCategory == null)
 {
-	<a class="btn btn-block btn-info"  asp-action="Index" 
+	<a class="btn btn-block btn-info"  asp-action="Index"
    asp-controller="Home" asp-route-category="" asp-route-pageNumber="1">Home</a>
 
-	
+
 }
 else{
 	<a class="btn btn-block btn-warning" asp-action="Index"
@@ -18,14 +18,73 @@ else{
 		<a class="btn btn-block btn-info"
    asp-action="Index"
    asp-controller="Home" asp-route-category="@item.Name" asp-route-pageNumber="1">@item.Name</a>
-		
+
 	}
 	else{
 		<a class="btn btn-block btn-warning"
-   asp-action="Index" 
+   asp-action="Index"
 	asp-controller="Home" asp-route-category="@item.Name" asp-route-pageNumber="1">@item.Name</a>
 
-	
+
 	}
-	
-} 
+
+}
+
+*@
+
+
+<div class="section">
+	<ul class="navigation">
+		<li class="active"><a href="#">راهنمای پت شاپ</a></li>
+		<li><a href="#">تخفیفات</a></li>
+	</ul>
+	<div class="aside">
+		<div>
+			<div>
+				<ul>
+					@if (Model.currentCategory == null)
+					{
+						<li class="btn btn-block btn-info">
+							<a asp-action="Index"
+						   asp-controller="Home" asp-route-category="" asp-route-pageNumber="1">صفحه اول</a>
+							
+						</li>
+
+
+
+					}
+					else
+					{
+						<li class="btn btn-block btn-warning">
+							<a asp-action="Index"
+						   asp-controller="Home" asp-route-category="" asp-route-pageNumber="1">صفحه اول</a>
+						</li>
+					}
+
+					@foreach (var item in Model.categories)
+					{
+						@if (Model.currentCategory == item.Name)
+						{
+							<li class="btn btn-block btn-info">
+								<a asp-action="Index"
+						   asp-controller="Home" asp-route-category="@item.Name" asp-route-pageNumber="1">@item.Name</a>
+							</li>
+						}
+						else
+						{
+							<li class="btn btn-block btn-warning">
+								<a asp-action="Index"
+						   asp-controller="Home" asp-route-category="@item.Name" asp-route-pageNumber="1">@item.Name</a>
+							</li>
+
+
+						}
+
+					}
+					</ul>
+
+			
+				</div>
+</div>
+</div>
+</div>
