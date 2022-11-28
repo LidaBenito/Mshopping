@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Petshop.Contract.Categories;
+using Petshop.Contract.Orders;
 using Petshop.Infra.Categories;
 using Petshop.Infra.Common;
+using Petshop.Infra.Orders;
 using Petshop.Infra.Products;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +14,7 @@ var cnn = builder.Configuration.GetConnectionString("BentiStore");
 builder.Services.AddDbContext<BentiShopContext>(options => options.UseSqlServer(cnn));
 builder.Services.AddScoped<ProductRepository, EfProductRepository>();
 builder.Services.AddScoped<CategoryRepository, EfCategoryRepository>();
+builder.Services.AddScoped<OrderRepository, EFOrderRepository>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
