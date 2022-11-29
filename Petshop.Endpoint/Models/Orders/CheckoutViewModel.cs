@@ -22,7 +22,6 @@ namespace Petshop.Endpoint.Models.Orders
         public string Country { get; set; }
         public string Zip { get; set; }
         public int GiftWrap { get; set; }
-        public List<OrderInfo> Orders { get; set; }
-        public PaymentOrder PaymentOrder { get; set; }
+       
     }
 }

@@ -711,6 +711,7 @@ body {
 	display:inline-block;
 	color:#7f7154;
 	font-size:14px;
+	font-weight:bold;
 	/*margin:0 0 0 10px;*/
 	font-family:"Myriad Pro";
 	padding-right:1%;
@@ -721,7 +722,7 @@ body {
 	  float:right;
 }
 #body #content #sidebar .section .aside div div ul li a:hover {
-	color:#e4a217;
+	color:#07b200;
 
 }
 #body #content #sidebar .section .aside div div ul li a.more {
