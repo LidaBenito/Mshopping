@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Petshop.Infra.Common;
 
@@ -11,9 +12,10 @@ using Petshop.Infra.Common;
 namespace Petshop.Infra.Migrations
 {
     [DbContext(typeof(BentiShopContext))]
-    partial class BentiShopContextModelSnapshot : ModelSnapshot
+    [Migration("20221202115943_add-paymentcode-to-payment")]
+    partial class addpaymentcodetopayment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -74,6 +76,7 @@ namespace Petshop.Infra.Migrations
                         .HasComment("please enter a address name");
 
                     b.Property<string>("Address2")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
@@ -98,9 +101,11 @@ namespace Petshop.Infra.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("State")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Zip")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -145,6 +150,7 @@ namespace Petshop.Infra.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("PaymentCode")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("PaymentDate")

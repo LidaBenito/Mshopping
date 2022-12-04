@@ -1,3 +1,23 @@
-﻿<div class="content">
-<h1>پرداخت با موفقیت انجام شد .</h1>
+﻿@model Petshop.Core.Orders.Order
+<div class="content">
+<h1> تکمیل خرید</h1>
+<table>
+	<tr>
+		<td>
+			شماره سفارش
+			
+		</td>
+		<td>
+			@Model.Id
+		</td>
+	</tr>
+	<tr>
+		<td>مبلغ</td>
+		<td>@Model.Orders.Sum(x=>x.Products.Price)</td>
+	</tr>
+</table>
+	<form asp-action="RequestPayment" asp-controller="Payment" method="post">
+	<input type="hidden" value="@Model.Id" name="Id"/>
+	<input class="btn btn-success" type="submit" value="نکمیل خرید"/>
+</form>
 </div>

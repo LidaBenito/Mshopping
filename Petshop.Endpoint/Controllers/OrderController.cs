@@ -27,6 +27,7 @@ namespace Petshop.Endpoint.Controllers
             }
             if (ModelState.IsValid)
             {
+               
                 Order order = new ()
                 {
                     FullName = viewModel.FullName,
@@ -39,6 +40,7 @@ namespace Petshop.Endpoint.Controllers
                     State = viewModel.State
 
                 };
+               
                 order.PaymentOrder = new PaymentOrder
                 {
                     PaymentDate = DateTime.Today,
@@ -54,15 +56,32 @@ namespace Petshop.Endpoint.Controllers
                         Quantity = item.Quantity
                     });
                 }
-                orderRepository.SaveOrder(order);
-                basket.Clear();
-                return RedirectToAction("Compelete");
+                //TempData["price"] = order.Orders.Sum(p => p.Products.Price * p.Quantity);
+               orderRepository.SaveOrder(order);
+                basket.Clear(); 
+                
+                return RedirectToAction(nameof(Compelete),new { orderId = order.Id});
             }
+            else
+            {
+
             return View(viewModel);
+            }
         }
-        public IActionResult Compelete()
+        public IActionResult Compelete(int orderId)
         {
-            return View();
+            var order = orderRepository.Find(orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+            return View(order);
+        }
+        [HttpPost]
+        public IActionResult Compelete(Order order)
+        {
+            return View(order);
+
         }
     }
 }
