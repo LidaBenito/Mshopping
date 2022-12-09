@@ -70,7 +70,7 @@ namespace Petshop.Endpoint.Controllers
         }
         public IActionResult Compelete(int orderId)
         {
-            var order = orderRepository.Find(orderId);
+            var order = orderRepository.Get(orderId);
             if (order == null)
             {
                 return NotFound();

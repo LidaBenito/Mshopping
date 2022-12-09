@@ -6,8 +6,10 @@ namespace Petshop.Contract.Orders
     {
         
 
-        Order Find(int id);
+        Order Get(int id);
+        Order GetPaymentOrder(int orderId);
         void SaveOrder(Order order);
-        void SetTransactionId(int id, string token);
+		void SetPaymentDone(string factorNumber, string transId);
+		void SetTransactionId(int id, string token,int paymentId);
     }
 }

@@ -1,6 +1,12 @@
-﻿@model Petshop.Core.Payments.RequestPaymentResult
+﻿@model Petshop.Core.Payments.VarifyPaymentResult
 
 <div class="content">
-<h3>پرداخت ناموفق </h3>	
+	<span>شماره پیگیری</span>
+<h3>@Model.TransId </h3>	
+<p>شماره کارت</p>
+<h4>@Model.CardNumber</h4>
+<h3>@Model.Message</h3>	
+<p>شماره فاکتور</p>
+<h3>@Model.FactorNumber</h3>
 
 </div>

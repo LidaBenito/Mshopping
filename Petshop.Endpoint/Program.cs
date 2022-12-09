@@ -17,7 +17,7 @@ builder.Services.AddDbContext<BentiShopContext>(options => options.UseSqlServer(
 builder.Services.AddScoped<ProductRepository, EfProductRepository>();
 builder.Services.AddScoped<CategoryRepository, EfCategoryRepository>();
 builder.Services.AddScoped<OrderRepository, EFOrderRepository>();
-builder.Services.AddScoped<PaymentRepository, EFPayIrRepository>();
+builder.Services.AddScoped<PaymentService, EFPayIrService>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
