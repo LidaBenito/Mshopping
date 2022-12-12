@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Petshop.Application\Petshop.Application.csproj" />
+    <ProjectReference Include="..\Petshop.Contract\Petshop.Contract.csproj" />
+    <ProjectReference Include="..\Petshop.Core\Petshop.Core.csproj" />
+    <ProjectReference Include="..\Petshop.Infra\Petshop.Infra.csproj" />
+  </ItemGroup>
+
+</Project>

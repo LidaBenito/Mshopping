@@ -21,6 +21,9 @@ public class EFOrderRepository : OrderRepository
 
     public Order GetPaymentOrder(int orderId) => dbContext.Orders.Include(z=>z.PaymentOrder).Include(c => c.Orders).ThenInclude(p => p.Products).FirstOrDefault(order => order.Id == orderId);
 
+	public List<Order> GetUnsendOrders()=>dbContext.Orders.Include(payment=>payment.PaymentOrder.Shipped==false).ToList();
+	
+
 	public void SaveOrder(Order order)
     {
         dbContext.AttachRange(order.Orders.Select(products => products.Products));
