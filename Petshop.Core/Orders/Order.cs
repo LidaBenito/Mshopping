@@ -1,4 +1,6 @@
-﻿namespace Petshop.Core.Orders
+﻿using Petshop.Core.Products;
+
+namespace Petshop.Core.Orders
 {
     public class Order
     {
@@ -11,7 +13,7 @@
         public string?  Country{ get; set; }
         public string?  Zip{ get; set; }
         public int GiftWrap{ get; set; }
-        public List<OrderInfo> Orders { get; set; }
+        public List<OrderInfo> OrdersInfo { get; set; }
         public PaymentOrder PaymentOrder { get; set; }
 
     }

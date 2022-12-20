@@ -287,3 +287,7 @@
     background: var(--dark);
     border-color: var(--primary);
 }
+
+.tblOrder{
+    width:100% !important;
+}

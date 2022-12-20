@@ -21,7 +21,7 @@ namespace Petshop.Endpoint.Controllers
         public IActionResult RequestPayment(int Id)
         {
             var order = orderRepository.GetPaymentOrder(Id);
-            var result = paymentService.Request(order.Orders.Sum(p => p.Products.Price).ToString(), "09121234567", order.Id.ToString(), order.Address);
+            var result = paymentService.Request(order.OrdersInfo.Sum(p => p.Product.Price).ToString(), "09121234567", order.Id.ToString(), order.Address);
             if (result.IsCorrect)
             {
                 orderRepository.SetTransactionId(Id, result.Token,order.PaymentOrder.Id);

@@ -121,7 +121,7 @@ namespace Petshop.Infra.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductsId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -131,9 +131,9 @@ namespace Petshop.Infra.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductsId");
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("OrderInfo");
+                    b.ToTable("OrderInfos");
                 });
 
             modelBuilder.Entity("Petshop.Core.Orders.PaymentOrder", b =>
@@ -264,16 +264,16 @@ namespace Petshop.Infra.Migrations
             modelBuilder.Entity("Petshop.Core.Orders.OrderInfo", b =>
                 {
                     b.HasOne("Petshop.Core.Orders.Order", null)
-                        .WithMany("Orders")
+                        .WithMany("OrdersInfo")
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("Petshop.Core.Products.Product", "Products")
+                    b.HasOne("Petshop.Core.Products.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductsId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Products");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Petshop.Core.Products.Product", b =>
@@ -294,7 +294,7 @@ namespace Petshop.Infra.Migrations
 
             modelBuilder.Entity("Petshop.Core.Orders.Order", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("OrdersInfo");
                 });
 #pragma warning restore 612, 618
         }

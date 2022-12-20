@@ -47,12 +47,12 @@ namespace Petshop.Endpoint.Controllers
 
                 };
 
-                order.Orders = new List<OrderInfo>();
+                order.OrdersInfo = new List<OrderInfo>();
                 foreach (var item in basket.Items)
                 {
-                    order.Orders.Add(new OrderInfo
+                    order.OrdersInfo.Add(new OrderInfo
                     {
-                        Products = item.Product,
+                        Product = item.Product,
                         Quantity = item.Quantity
                     });
                 }

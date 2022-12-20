@@ -12,8 +12,8 @@ using Petshop.Infra.Common;
 namespace Petshop.Infra.Migrations
 {
     [DbContext(typeof(BentiShopContext))]
-    [Migration("20221128105501_new-entity")]
-    partial class newentity
+    [Migration("20221218224430_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -48,17 +48,17 @@ namespace Petshop.Infra.Migrations
                         new
                         {
                             CategoryId = 1,
-                            Name = "accessory"
+                            Name = "لوازم ضروری"
                         },
                         new
                         {
                             CategoryId = 2,
-                            Name = "food"
+                            Name = "غذا"
                         },
                         new
                         {
                             CategoryId = 3,
-                            Name = "bath"
+                            Name = "شستشو"
                         });
                 });
 
@@ -76,7 +76,6 @@ namespace Petshop.Infra.Migrations
                         .HasComment("please enter a address name");
 
                     b.Property<string>("Address2")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("City")
@@ -101,11 +100,9 @@ namespace Petshop.Infra.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Zip")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -126,7 +123,7 @@ namespace Petshop.Infra.Migrations
                     b.Property<int?>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("ProductsId")
+                    b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantity")
@@ -136,9 +133,9 @@ namespace Petshop.Infra.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("ProductsId");
+                    b.HasIndex("ProductId");
 
-                    b.ToTable("OrderInfo");
+                    b.ToTable("OrderInfos");
                 });
 
             modelBuilder.Entity("Petshop.Core.Orders.PaymentOrder", b =>
@@ -148,6 +145,9 @@ namespace Petshop.Infra.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("PaymentCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("PaymentDate")
                         .HasColumnType("datetime2");
@@ -198,7 +198,7 @@ namespace Petshop.Infra.Migrations
                         {
                             Id = 1,
                             CategoryId = 1,
-                            Description = "ghalade",
+                            Description = "قلاده",
                             Name = "pro01",
                             Price = 10000000
                         },
@@ -206,7 +206,7 @@ namespace Petshop.Infra.Migrations
                         {
                             Id = 2,
                             CategoryId = 2,
-                            Description = "ghaza khoshk",
+                            Description = "غذای خشک",
                             Name = "pro02",
                             Price = 200000
                         },
@@ -214,7 +214,7 @@ namespace Petshop.Infra.Migrations
                         {
                             Id = 3,
                             CategoryId = 3,
-                            Description = "hole",
+                            Description = "حوله",
                             Name = "pro03",
                             Price = 30000
                         },
@@ -222,7 +222,7 @@ namespace Petshop.Infra.Migrations
                         {
                             Id = 4,
                             CategoryId = 2,
-                            Description = "zarf",
+                            Description = "ظرف آب",
                             Name = "pro04",
                             Price = 800000
                         },
@@ -230,7 +230,7 @@ namespace Petshop.Infra.Migrations
                         {
                             Id = 5,
                             CategoryId = 3,
-                            Description = "ghaza conserve",
+                            Description = "کنسرو",
                             Name = "pro05",
                             Price = 30000
                         },
@@ -238,7 +238,7 @@ namespace Petshop.Infra.Migrations
                         {
                             Id = 6,
                             CategoryId = 3,
-                            Description = "narm konande",
+                            Description = "شامپو",
                             Name = "pro06",
                             Price = 30000
                         },
@@ -246,7 +246,7 @@ namespace Petshop.Infra.Migrations
                         {
                             Id = 7,
                             CategoryId = 1,
-                            Description = "kafsh",
+                            Description = "کفش",
                             Name = "pro07",
                             Price = 3000000
                         });
@@ -266,16 +266,16 @@ namespace Petshop.Infra.Migrations
             modelBuilder.Entity("Petshop.Core.Orders.OrderInfo", b =>
                 {
                     b.HasOne("Petshop.Core.Orders.Order", null)
-                        .WithMany("Orders")
+                        .WithMany("OrdersInfo")
                         .HasForeignKey("OrderId");
 
-                    b.HasOne("Petshop.Core.Products.Product", "Products")
+                    b.HasOne("Petshop.Core.Products.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductsId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Products");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Petshop.Core.Products.Product", b =>
@@ -296,7 +296,7 @@ namespace Petshop.Infra.Migrations
 
             modelBuilder.Entity("Petshop.Core.Orders.Order", b =>
                 {
-                    b.Navigation("Orders");
+                    b.Navigation("OrdersInfo");
                 });
 #pragma warning restore 612, 618
         }

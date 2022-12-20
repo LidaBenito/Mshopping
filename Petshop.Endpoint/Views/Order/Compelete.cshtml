@@ -13,7 +13,7 @@
 	</tr>
 	<tr>
 		<td>مبلغ</td>
-		<td>@Model.Orders.Sum(x=>x.Products.Price)</td>
+		<td>@Model.OrdersInfo.Sum(x=>x.Product.Price)</td>
 	</tr>
 </table>
 	<form asp-action="RequestPayment" asp-controller="Payment" method="post">

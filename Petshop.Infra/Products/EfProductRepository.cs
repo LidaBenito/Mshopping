@@ -35,6 +35,8 @@ namespace Petshop.Infra.Products
             return result;
         }
 
-        public Product GetProduct(int productId) => dbContext.Products.FirstOrDefault(productid => productid.Id == productId); 
+        public Product GetProduct(int productId) => dbContext.Products.FirstOrDefault(productid => productid.Id == productId);
+
+        public List<Product> GetProducts() => dbContext.Products.ToList();
     }
 }
