@@ -1,87 +1,84 @@
-﻿using Petshop.Contract.Orders;
-using Petshop.Core.Orders;
+﻿
+namespace Petshop.Endpoint.Controllers;
 
-namespace Petshop.Endpoint.Controllers
+public class OrderController : Controller
 {
-    public class OrderController : Controller
+    private readonly OrderRepository orderRepository;
+    private readonly Basket basket;
+
+    public OrderController(OrderRepository orderRepository, Basket basket)
     {
-        private readonly OrderRepository orderRepository;
-        private readonly Basket basket;
+        this.orderRepository = orderRepository;
+        this.basket = basket;
+    }
+    public IActionResult Checkout()
+    {
+        return View();
+    }
+    [HttpPost]
+    public IActionResult Checkout(CheckoutViewModel viewModel)
 
-        public OrderController(OrderRepository orderRepository, Basket basket)
+    {
+        if (!basket.Items.Any())
         {
-            this.orderRepository = orderRepository;
-            this.basket = basket;
+            ModelState.AddModelError("", "کالایی موجود نیست");
         }
-        public IActionResult Checkout()
+        if (ModelState.IsValid)
         {
-            return View();
+
+            Order order = new()
+            {
+                FullName = viewModel.FullName,
+                Address = viewModel.Address,
+                Address2 = viewModel.Address2,
+                City = viewModel.City,
+                Country = viewModel.Country,
+                GiftWrap = viewModel.GiftWrap,
+                Zip = viewModel.Zip,
+                State = viewModel.State
+
+            };
+
+            order.PaymentOrder = new PaymentOrder
+            {
+                PaymentDate = DateTime.Today,
+
+            };
+
+            order.OrdersInfo = new List<OrderInfo>();
+            foreach (var item in basket.Items)
+            {
+                order.OrdersInfo.Add(new OrderInfo
+                {
+                    Product = item.Product,
+                    Quantity = item.Quantity
+                });
+            }
+            //TempData["price"] = order.Orders.Sum(p => p.Products.Price * p.Quantity);
+            orderRepository.SaveOrder(order);
+            basket.Clear();
+
+            return RedirectToAction(nameof(Compelete), new { orderId = order.Id });
         }
-        [HttpPost]
-        public IActionResult Checkout(CheckoutViewModel viewModel)
-
+        else
         {
-            if (!basket.Items.Any())
-            {
-                ModelState.AddModelError("", "کالایی موجود نیست");
-            }
-            if (ModelState.IsValid)
-            {
-               
-                Order order = new ()
-                {
-                    FullName = viewModel.FullName,
-                    Address = viewModel.Address,
-                    Address2 = viewModel.Address2,
-                    City = viewModel.City,
-                    Country = viewModel.Country,
-                    GiftWrap = viewModel.GiftWrap,
-                    Zip = viewModel.Zip,
-                    State = viewModel.State
-
-                };
-               
-                order.PaymentOrder = new PaymentOrder
-                {
-                    PaymentDate = DateTime.Today,
-
-                };
-
-                order.OrdersInfo = new List<OrderInfo>();
-                foreach (var item in basket.Items)
-                {
-                    order.OrdersInfo.Add(new OrderInfo
-                    {
-                        Product = item.Product,
-                        Quantity = item.Quantity
-                    });
-                }
-                //TempData["price"] = order.Orders.Sum(p => p.Products.Price * p.Quantity);
-               orderRepository.SaveOrder(order);
-                basket.Clear(); 
-                
-                return RedirectToAction(nameof(Compelete),new { orderId = order.Id});
-            }
-            else
-            {
 
             return View(viewModel);
-            }
         }
-        public IActionResult Compelete(int orderId)
+    }
+    public IActionResult Compelete(int orderId)
+    {
+        var order = orderRepository.Get(orderId);
+        if (order == null)
         {
-            var order = orderRepository.Get(orderId);
-            if (order == null)
-            {
-                return NotFound();
-            }
-            return View(order);
+            return NotFound();
         }
-        [HttpPost]
-        public IActionResult Compelete(Order order)
-        {
-            return View(order);
+        return View(order);
+    }
+    [HttpPost]
+    public IActionResult Compelete(Order order)
+    {
+        return View(order);
 
-        }
     }
 }

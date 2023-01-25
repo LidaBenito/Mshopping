@@ -13,6 +13,7 @@
                     <th scope="col">نام مشتری</th>
                     <th scope="col">نام محصول</th>
                     <th scope="col">ارسال محصول</th>
+                    <th scope="col"> جزییات محصول</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,12 +24,17 @@
                     <th scope="row">@item.PaymentOrder.PaymentCode</th>
                     <td>@item.PaymentOrder.PaymentDate</td>
                     <td>@item.FullName</td>
+                    <td>@item.PaymentOrder.Shipped</td>
                     @foreach (var obj in item.OrdersInfo)
                             {
+                                
 
                                 <td>@obj.Product.Description</td>
+                            <td>
+                                    <a class="btn btn-info" asp-action="OrderDetails" asp-controller="Order" asp-route-Id="@obj.Id">
+                                        جزییات</a>
+                            </td>
                             }
-                    <td>@item.PaymentOrder.Shipped</td>
                 </tr>
                 }
              
@@ -38,3 +44,4 @@
 </div>
 
 </div>
+

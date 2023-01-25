@@ -1,16 +1,14 @@
-﻿using AutoMapper;
-using Petshop.Core.Orders;
-using Petshop.UI.UserDashboard.Models;
+﻿using Petshop.UI.UserDashboard.Models.Orders;
 
-namespace Petshop.UI.UserDashboard.Helpers.MapperProfiles.Orders
+namespace Petshop.UI.UserDashboard.Helpers.MapperProfiles.Orders;
+
+public class OrderProfile : Profile
 {
-    public class OrderProfile : Profile
+    public OrderProfile()
     {
-        public OrderProfile()
-        {
-            CreateMap<Order,OrderListViewModel > ();
+        CreateMap<Order, OrderListViewModel>();
+        CreateMap<Order, OrderDetailsViewModel>();
 
 
-        }
     }
 }

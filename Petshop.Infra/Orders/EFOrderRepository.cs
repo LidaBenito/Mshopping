@@ -37,8 +37,8 @@ public class EFOrderRepository : OrderRepository
 	{
 		List<Order> orders = dbContext.Orders
 			.Include(payment => payment.PaymentOrder)
-			.Where(c => c.PaymentOrder.Shipped == false).ToList();
-
+			.Where(shiped => shiped.PaymentOrder.Shipped == false).Include(orderinfo=>orderinfo.OrdersInfo).ThenInclude(product=>product.Product).ToList();
+		
 		return orders;
 
 	}

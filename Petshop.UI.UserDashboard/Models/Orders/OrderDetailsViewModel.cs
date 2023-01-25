@@ -1,10 +1,8 @@
-﻿using Petshop.Core.Orders;
-using Petshop.Core.Products;
-
-namespace Petshop.UI.UserDashboard.Models
+﻿namespace Petshop.UI.UserDashboard.Models.Orders
 {
-    public class OrderListViewModel
+    public class OrderDetailsViewModel
     {
+        public int Id { get; set; }
         public string FullName { get; set; }
         public string Address { get; set; }
         public string? Address2 { get; set; }
@@ -13,9 +11,7 @@ namespace Petshop.UI.UserDashboard.Models
         public string? Country { get; set; }
         public string? Zip { get; set; }
         public int GiftWrap { get; set; }
-        public Product Product { get; set; }
         public List<OrderInfo> OrdersInfo { get; set; }
         public PaymentOrder PaymentOrder { get; set; }
-
     }
 }

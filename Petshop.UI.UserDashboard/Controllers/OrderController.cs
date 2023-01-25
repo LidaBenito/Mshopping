@@ -1,34 +1,35 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Mvc;
-using Petshop.Contract.Orders;
-using Petshop.Contract.Orders.Services;
-using Petshop.UI.UserDashboard.Models;
+﻿using Petshop.UI.UserDashboard.Models.Orders;
 
-namespace Petshop.UI.UserDashboard.Controllers
+namespace Petshop.UI.UserDashboard.Controllers;
+
+public class OrderController : Controller
 {
-	public class OrderController : Controller
-	{
-		private readonly OrderRepository orderRepository;
-        private readonly OrderInfoService orderService;
-        private readonly IMapper mapper;
+    private readonly OrderRepository orderRepository;
+    private readonly IMapper mapper;
 
-        public OrderController(OrderRepository orderRepository,OrderInfoService orderService, IMapper mapper)
-		{
-			this.orderRepository = orderRepository;
-            this.orderService = orderService;
-            this.mapper = mapper;
-        }
-		public IActionResult OrderList()
-		{
-            var orders=orderRepository.GetUnsendOrders();
-			var products = orderService.GetProductsByOrders();
-			List< OrderListViewModel> model = mapper.Map< List<OrderListViewModel>>(orders);
-			//foreach (var item in products)
-			//{
-			//	model.Select(S => S.Product).Append(item.Name);
-			//}
-            return View(model);
-		}
-		
-	}
+    public OrderController(OrderRepository orderRepository
+        , IMapper mapper)
+    {
+        this.orderRepository = orderRepository;
+        this.mapper = mapper;
+    }
+    public IActionResult OrderList()
+    {
+        var orders = orderRepository.GetUnsendOrders();
+       
+        List<OrderListViewModel> model = mapper.Map<List<OrderListViewModel>>(orders);
+      
+        return View(model);
+    }
+   	
+	public IActionResult OrderDetails(int id)
+    {
+        var order = orderRepository.Get(id);
+        var viewModel = mapper.Map<OrderDetailsViewModel>(order);
+        return View(viewModel);
+
+    }
+  
+
+
 }
