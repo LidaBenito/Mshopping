@@ -1,7 +1,7 @@
 ﻿global using MediatR;
 global using Microsoft.EntityFrameworkCore;
-global using Petshop.Application.OrdersService;
-global using Petshop.Application.PaymentsService;
+global using Petshop.Application.Orders.Services;
+global using Petshop.Application.Payments.Services;
 global using Petshop.Contract.Categories;
 global using Petshop.Contract.Orders;
 global using Petshop.Contract.Orders.OrdersInfo;

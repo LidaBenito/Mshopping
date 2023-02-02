@@ -1,26 +1,27 @@
-﻿
-namespace Petshop.Endpoint.Controllers;
+﻿namespace Petshop.Endpoint.Controllers;
 
-public class PaymentController : Controller
+public class PaymentController : BaseController
 {
     private readonly OrderRepository orderRepository;
     private readonly PaymentService paymentService;
     private readonly IConfiguration configuration;
-
-    public PaymentController(OrderRepository orderRepository, PaymentService paymentService, IConfiguration configuration)
-    {
-        this.orderRepository = orderRepository;
-        this.paymentService = paymentService;
-        this.configuration = configuration;
-    }
-    [HttpPost]
+	private readonly IMediator _mediator;
+	private readonly IMapper _mapper;
+	public PaymentController(OrderRepository orderRepository, PaymentService paymentService, IConfiguration configuration, IMediator mediator, IMapper mapper)
+	{
+		this.orderRepository = orderRepository;
+		this.paymentService = paymentService;
+		this.configuration = configuration;
+		_mediator = mediator;
+		_mapper = mapper;
+	}
+	[HttpPost]
     public IActionResult RequestPayment(int Id)
     {
-        var order = orderRepository.GetPaymentOrder(Id);
-        var result = paymentService.Request(order.OrdersInfo.Sum(p => p.Product.Price).ToString(), "09121234567", order.Id.ToString(), order.Address);
-        if (result.IsCorrect)
+        RequestPaymentQuery requestResult = new() { Id = Id };
+        var result = _mediator.Send(requestResult).GetAwaiter().GetResult();
+        if (result.IsNotNull())
         {
-            orderRepository.SetTransactionId(Id, result.Token, order.PaymentOrder.Id);
             return Redirect($"{configuration["payIr:PaymentUrl"]}{result.Token}");
         }
 

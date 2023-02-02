@@ -118,7 +118,7 @@ namespace Petshop.Infra.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
@@ -265,7 +265,9 @@ namespace Petshop.Infra.Migrations
                 {
                     b.HasOne("Petshop.Core.Orders.Order", null)
                         .WithMany("OrdersInfo")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Petshop.Core.Products.Product", "Product")
                         .WithMany()

@@ -15,7 +15,11 @@
 <body>
 <div id="header"> <a href="#" id="logo"><img src="~/images/logo.gif" width="310" height="114" alt=""></a>
   <ul class="navigation">
-            <li class="active"><a asp-action="Index" asp-controller="Home">صفحه اول</a></li>
+
+            <li class="active">
+                <a asp-action="Index"
+                   asp-controller="Home" asp-route-category="" asp-route-pageNumber="1">صفحه اول</a>
+            </li>
     <li><a href="petmart.html">مارکت</a></li>
     <li><a href="blog.html">اخبار</a></li>
     <li><a href="contact.html">تماس با ما</a></li>
@@ -23,7 +27,7 @@
   </ul>
 </div>
 <div id="body">
-  <div class="banner">&nbsp;</div>
+  @*<div class="banner">&nbsp;</div>*@
   <div id="content">
       @RenderBody()
     <div id="sidebar">

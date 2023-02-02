@@ -12,24 +12,13 @@
 		<div>
 			<div>
 				<ul>
-					@if (Model.currentCategory == null)
-					{
-						<li class="btn btn-block btn-info">
-							<a asp-action="Index"
-						   asp-controller="Home" asp-route-category="" asp-route-pageNumber="1">صفحه اول</a>
-
-						</li>
-
-
-
-					}
-					else
-					{
+					
+					
 						<li class="btn btn-block btn-warning">
 							<a asp-action="Index"
 						   asp-controller="Home" asp-route-category="" asp-route-pageNumber="1">صفحه اول</a>
 						</li>
-					}
+					
 
 					@foreach (var item in Model.categories)
 					{

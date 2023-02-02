@@ -8,14 +8,14 @@
 				<div class="row mb-3">
 					<label for="inputEmail3" class="col-sm-2 col-form-label">نام :</label>
 					<div class="col-sm-3">
-						<span  id="inputEmail3">@Model.FullName</span>
+						<span id="inputEmail3">@Model.FullName</span>
 					</div>
 					<label for="inputPassword3" class="col-sm-2 col-form-label">کشور:</label>
 					<div class="col-sm-5">
 						<span id="inputEmail3">@Model.Country</span>
 					</div>
 				</div>
-				
+
 				<div class="row mb-3">
 					<label for="inputPassword3" class="col-sm-2 col-form-label">شهر:</label>
 					<div class="col-sm-3">
@@ -25,10 +25,9 @@
 					<div class="col-sm-5">
 						<span id="inputEmail3">@Model.State</span>
 					</div>
-					
+
 				</div>
 				<div class="row mb-3">
-					
 				</div><div class="row mb-3">
 					<label for="inputPassword3" class="col-sm-2 col-form-label">آدرس اول</label>
 					<div class="col-sm-10">
@@ -39,9 +38,9 @@
 					<div class="col-sm-10">
 						<span id="inputEmail3">@Model.Address2</span>
 					</div>
-				
+
 				</div>
-				
+
 			</form>
 		</div>
 	</div>
@@ -68,15 +67,14 @@
 							<th scope="row">@item.Product.Name</th>
 							<td>@item.Quantity</td>
 							<td>@item.TotalPrice</td>
-							<td>
-								<a onclick="showConfirmModal(@item.Id, 'تایید')" data-toggle="modal"
-							   asp-route-Id="@item.Id" data-target="#confirm"
-							   class="btn btn-outline-primary b-3">
-									<i class="ri-alipay-fill  pr-0 m-0"></i>
-								</a>
-								<button onclick="DeleleOrderInfo(@item.Id)"
-									class="btn btn-outline-danger mb-3">
-									<i class="ri-delete-bin-2-fill pr-0 m-0"></i>
+							<a asp-route-itemid="@item.Id" id="getId" hidden></a>
+							<td colspan="3">
+								<button  asp-route-Id="@item.Id" class="btn btn-outline-primary b-3">
+									تایید
+								</button>
+								<button asp-route-Id="@item.Id" asp-action="DeleteOrder" asp-controller="Order"
+								class="btn btn-outline-danger mb-3">
+									حذف
 								</button>
 							</td>
 						</tr>
@@ -87,38 +85,4 @@
 		</div>
 	</div>
 
-</div>
-<div class="modal fade " id="DeleleOrderInfo" tabindex="-1" role="dialog"
-	 aria-labelledby="حذف" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h6 class="text-center mb-4">حذف </h6>
-				<button type="button" class="close d-flex align-items-center justify-content-center"
-						data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true" class="ion-ios-close"></span>
-				</button>
-			</div>
-			<div class="modal-body p-4 p-md-5">
-				<div id='content'>
-				</div>
-			</div>
-
-		</div>
-	</div>
-</div>
-<div class="modal" id="confirm" tabindex="-1" role="dialog">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">تایید سفارش</h5>
-			</div>
-			<div class="modal-body">
-			</div>
-			<div class="modal-footer">
-
-				<button type="button" class="btn btn-outline-primary" data-dismiss="modal">بستن</button>
-			</div>
-		</div>
-	</div>
 </div>

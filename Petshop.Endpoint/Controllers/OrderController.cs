@@ -1,17 +1,21 @@
 ﻿
 namespace Petshop.Endpoint.Controllers;
 
-public class OrderController : Controller
+public class OrderController : BaseController
 {
     private readonly OrderRepository orderRepository;
     private readonly Basket basket;
+	private readonly IMediator _mediator;
+	private readonly IMapper _mapper;
 
-    public OrderController(OrderRepository orderRepository, Basket basket)
-    {
-        this.orderRepository = orderRepository;
-        this.basket = basket;
-    }
-    public IActionResult Checkout()
+	public OrderController(OrderRepository orderRepository, Basket basket, IMapper mapper, IMediator mediator)
+	{
+		this.orderRepository = orderRepository;
+		this.basket = basket;
+		_mapper = mapper;
+		_mediator = mediator;
+	}
+	public IActionResult Checkout()
     {
         return View();
     }
@@ -25,40 +29,15 @@ public class OrderController : Controller
         }
         if (ModelState.IsValid)
         {
+            CheckoutOrderCommand orderCommand = _mapper.Map<CheckoutOrderCommand>(viewModel);
+            var resut =_mediator.Send(orderCommand).GetAwaiter().GetResult();
 
-            Order order = new()
-            {
-                FullName = viewModel.FullName,
-                Address = viewModel.Address,
-                Address2 = viewModel.Address2,
-                City = viewModel.City,
-                Country = viewModel.Country,
-                GiftWrap = viewModel.GiftWrap,
-                Zip = viewModel.Zip,
-                State = viewModel.State
 
-            };
 
-            order.PaymentOrder = new PaymentOrder
-            {
-                PaymentDate = DateTime.Today,
+			//TempData["price"] = order.Orders.Sum(p => p.Products.Price * p.Quantity);
 
-            };
 
-            order.OrdersInfo = new List<OrderInfo>();
-            foreach (var item in basket.Items)
-            {
-                order.OrdersInfo.Add(new OrderInfo
-                {
-                    Product = item.Product,
-                    Quantity = item.Quantity
-                });
-            }
-            //TempData["price"] = order.Orders.Sum(p => p.Products.Price * p.Quantity);
-            orderRepository.SaveOrder(order);
-            basket.Clear();
-
-            return RedirectToAction(nameof(Compelete), new { orderId = order.Id });
+			return RedirectToAction(nameof(Compelete), new { orderId = resut.Value });
         }
         else
         {
@@ -68,12 +47,18 @@ public class OrderController : Controller
     }
     public IActionResult Compelete(int orderId)
     {
-        var order = orderRepository.Get(orderId);
-        if (order == null)
-        {
-            return NotFound();
-        }
-        return View(order);
+		GetOrderQuery order= new() { OrderId=orderId};
+		var orderResult = _mediator.Send(order).GetAwaiter().GetResult();
+		if (orderResult.IsNotNull())
+		{
+			return View(orderResult);
+
+		}
+		else
+		{
+		return JsonFail();
+		}
+	
     }
     [HttpPost]
     public IActionResult Compelete(Order order)

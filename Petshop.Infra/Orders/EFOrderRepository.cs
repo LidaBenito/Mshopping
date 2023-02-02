@@ -16,13 +16,15 @@ public class EFOrderRepository : OrderRepository
 
 
 
-	public Order Get(int id)
+	public Order GetOrder(int id)
 	{
 		var order = dbContext.Orders.Include(o => o.OrdersInfo)
 			.ThenInclude(p => p.Product)
 			.FirstOrDefault(order => order.Id == id);
 		return order;
 	}
+
+
 
 	public Order GetPaymentOrder(int orderId)
 	{
@@ -42,12 +44,17 @@ public class EFOrderRepository : OrderRepository
 		return orders;
 
 	}
-	
-
-	public void SaveOrder(Order order)
+	public void Save(Order order)
 	{
-		dbContext.AttachRange(order.OrdersInfo.Select(products => products.Product));
 		dbContext.Orders.Add(order);
+		dbContext.SaveChanges();
+	}
+
+	public void UpdateOrder(Order order)
+	{
+		var currentOrder = dbContext.Orders.FirstOrDefault(c => c.Id == order.Id);
+		dbContext.AttachRange(currentOrder.OrdersInfo.Select(products => products.Product));
+		dbContext.Orders.Update(currentOrder);
 		dbContext.SaveChanges();
 	}
 

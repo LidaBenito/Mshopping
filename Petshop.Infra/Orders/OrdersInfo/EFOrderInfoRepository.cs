@@ -13,7 +13,21 @@ public class EFOrderInfoRepository : OrderInfoRepository
     {
         this.dbContext = dbContext;
     }
-    public List<OrderInfo> GetOrderInfos() => dbContext.OrderInfos.Include(x=>x.Product).ToList();
+
+	public void Delete(OrderInfo orderInfo)
+	{
+		var currentOrderInfo=dbContext.OrderInfos.FirstOrDefault(o=>o.Id==orderInfo.Id);
+        dbContext.Remove(currentOrderInfo);
+        dbContext.SaveChanges();
+	}
+
+	public OrderInfo GetOrderInfo(int id)=>dbContext.OrderInfos.FirstOrDefault(c => c.Id == id);
+    
+            
+
+	public List<OrderInfo> GetOrderInfos() => dbContext.OrderInfos.Include(x=>x.Product).ToList();
+	
+
 }
 
 
