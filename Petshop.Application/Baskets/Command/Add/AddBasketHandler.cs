@@ -23,6 +23,7 @@ public class AddBasketHandler : CommandHandler<AddBasketCommand>
 		if (command != null)
 		{
 			var product = productRepository.GetProduct(command.productId);
+			
 			sessionBasket.AddItem(1, product);
 
 		}

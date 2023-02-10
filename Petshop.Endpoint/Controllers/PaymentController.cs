@@ -1,21 +1,16 @@
-﻿using Petshop.Application.Payments.Command.PaymentFail;
-using Petshop.Application.Payments.Command.PaymentSuccess;
-using Petshop.Application.Payments.Query.PaymentRequest;
-
-namespace Petshop.Endpoint.Controllers;
+﻿namespace Petshop.Endpoint.Controllers;
 
 public class PaymentController : BaseController
 {
-    private readonly OrderRepository orderRepository;
-    private readonly PaymentService paymentService;
+   
     private readonly IConfiguration configuration;
 	private readonly IMediator _mediator;
-	public PaymentController(OrderRepository orderRepository, PaymentService paymentService, IConfiguration configuration, IMediator mediator)
+	private readonly IMapper _mapper;
+	public PaymentController(IConfiguration configuration, IMediator mediator, IMapper mapper)
 	{
-		this.orderRepository = orderRepository;
-		this.paymentService = paymentService;
 		this.configuration = configuration;
 		_mediator = mediator;
+		_mapper = mapper;
 	}
 	[HttpPost]
     public IActionResult RequestPayment(int Id)
@@ -35,7 +30,7 @@ public class PaymentController : BaseController
     {
         if (result.IsCorrect) 
         {
-            PaymentSuccessCommand payment = new();
+            PaymentSuccessCommand payment = _mapper.Map<PaymentSuccessCommand>(result);
             var verifyResult = _mediator.Send(payment).GetAwaiter().GetResult();
            
                 return View("PaymentCompelete", verifyResult);

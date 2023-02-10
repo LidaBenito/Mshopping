@@ -30,3 +30,7 @@ global using Petshop.Application.Orders.Command;
 global using Petshop.Application.Orders.Query;
 global using Petshop.Utility.MediatRHelper.Results;
 global using Petshop.Application.Payments.Query;
+global using Petshop.Application.Payments.Command.PaymentSuccess; 
+global using Petshop.Application.Payments.Query.PaymentRequest; 
+global using Petshop.Application.Payments.Command.PaymentFail;
+global using Petshop.Application.Payments.Command.PaymentSuccess;
