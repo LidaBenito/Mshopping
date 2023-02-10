@@ -1,4 +1,8 @@
-﻿namespace Petshop.Endpoint.Controllers;
+﻿using Petshop.Application.Payments.Command.PaymentFail;
+using Petshop.Application.Payments.Command.PaymentSuccess;
+using Petshop.Application.Payments.Query.PaymentRequest;
+
+namespace Petshop.Endpoint.Controllers;
 
 public class PaymentController : BaseController
 {
@@ -6,14 +10,12 @@ public class PaymentController : BaseController
     private readonly PaymentService paymentService;
     private readonly IConfiguration configuration;
 	private readonly IMediator _mediator;
-	private readonly IMapper _mapper;
-	public PaymentController(OrderRepository orderRepository, PaymentService paymentService, IConfiguration configuration, IMediator mediator, IMapper mapper)
+	public PaymentController(OrderRepository orderRepository, PaymentService paymentService, IConfiguration configuration, IMediator mediator)
 	{
 		this.orderRepository = orderRepository;
 		this.paymentService = paymentService;
 		this.configuration = configuration;
 		_mediator = mediator;
-		_mapper = mapper;
 	}
 	[HttpPost]
     public IActionResult RequestPayment(int Id)
@@ -31,21 +33,18 @@ public class PaymentController : BaseController
     }
     public IActionResult Verify(RequestPaymentResult result)
     {
-        if (result.IsCorrect)
+        if (result.IsCorrect) 
         {
-            var verifyResult = paymentService.Varify(result.Token.ToString());
-            if (verifyResult.IsCorrect)
-            {
-                orderRepository.SetPaymentDone(verifyResult.FactorNumber, verifyResult.TransId);
-                verifyResult.Message = "پرداخت با موفقیت انجام شد .";
-
+            PaymentSuccessCommand payment = new();
+            var verifyResult = _mediator.Send(payment).GetAwaiter().GetResult();
+           
                 return View("PaymentCompelete", verifyResult);
-            }
+           
         }
+        PaymentFailCommand paymentFail = new();
 
-        result.ErrorCode = "404";
-        result.ErrorMessage = "پرداخت ناموفق !";
-        return View(result);
+        var failResult = _mediator.Send(paymentFail).GetAwaiter().GetResult();
+        return View(failResult);
 
     }
 }

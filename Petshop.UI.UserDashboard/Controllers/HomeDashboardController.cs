@@ -2,11 +2,11 @@
 
 namespace Petshop.UI.UserDashboard.Controllers;
 
-public class HomeController : Controller
+public class HomeDashboardController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
+    private readonly ILogger<HomeDashboardController> _logger;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeDashboardController(ILogger<HomeDashboardController> logger)
     {
         _logger = logger;
     }

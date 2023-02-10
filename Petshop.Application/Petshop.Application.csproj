@@ -8,7 +8,7 @@
 
   <ItemGroup>
     <Folder Include="Baskets\Query\" />
-    <Folder Include="Payments\Command\" />
+    <Folder Include="Orders\OrderInfos\Query\" />
   </ItemGroup>
 
   <ItemGroup>

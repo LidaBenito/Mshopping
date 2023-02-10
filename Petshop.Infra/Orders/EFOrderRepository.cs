@@ -39,21 +39,22 @@ public class EFOrderRepository : OrderRepository
 	{
 		List<Order> orders = dbContext.Orders
 			.Include(payment => payment.PaymentOrder)
-			.Where(shiped => shiped.PaymentOrder.Shipped == false).Include(orderinfo=>orderinfo.OrdersInfo).ThenInclude(product=>product.Product).ToList();
+			.Where(shiped => shiped.PaymentOrder.Shipped == false).Include(orderinfo=>orderinfo.OrdersInfo).ThenInclude(product=>product.Product).Where(o=>o.OrdersInfo != null).ToList();
 		
 		return orders;
 
 	}
-	public void Save(Order order)
+	public  void AddOrder(Order order)
 	{
-		dbContext.Orders.Add(order);
-		dbContext.SaveChanges();
+		 dbContext.Orders.Add(order);
+		 dbContext.SaveChanges();
 	}
 
-	public void UpdateOrder(Order order)
+
+	public  void UpdateOrder(Order order)
 	{
 		var currentOrder = dbContext.Orders.FirstOrDefault(c => c.Id == order.Id);
-		dbContext.AttachRange(currentOrder.OrdersInfo.Select(products => products.Product));
+		 dbContext.AttachRange(currentOrder.OrdersInfo.Select(products => products.Product));
 		dbContext.Orders.Update(currentOrder);
 		dbContext.SaveChanges();
 	}

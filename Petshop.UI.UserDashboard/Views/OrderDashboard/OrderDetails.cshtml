@@ -68,14 +68,14 @@
 							<td>@item.Quantity</td>
 							<td>@item.TotalPrice</td>
 							<a asp-route-itemid="@item.Id" id="getId" hidden></a>
-							<td colspan="3">
-								<button  asp-route-Id="@item.Id" class="btn btn-outline-primary b-3">
+							<td colspan="6">
+								<button  asp-route-Id="@item.Id" class="btn btn-outline-primary mb-3">
 									تایید
 								</button>
-								<button asp-route-Id="@item.Id" asp-action="DeleteOrder" asp-controller="Order"
+								<a asp-route-Id="@item.Id" asp-action="DeleteOrder" asp-controller="OrderDashboard"
 								class="btn btn-outline-danger mb-3">
 									حذف
-								</button>
+								</a>
 							</td>
 						</tr>
 					}

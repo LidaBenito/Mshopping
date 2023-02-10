@@ -1,17 +1,16 @@
 ﻿using Petshop.Core.Orders;
 
-namespace Petshop.Contract.Orders
-{
+namespace Petshop.Contract.Orders;
+
     public interface OrderRepository
     {
 
-		void Save(Order order);
+	void AddOrder(Order order);
 
-		Order GetOrder(int id);
+	Order GetOrder(int id);
         Order GetPaymentOrder(int orderId);
-		List<Order> GetUnsendOrders();
+	List<Order> GetUnsendOrders();
         void UpdateOrder(Order order);
-		void SetPaymentDone(string factorNumber, string transId);
-		void SetTransactionId(int id, string token,int paymentId);
+	void SetPaymentDone(string factorNumber, string transId);
+	void SetTransactionId(int id, string token,int paymentId);
     }
-}

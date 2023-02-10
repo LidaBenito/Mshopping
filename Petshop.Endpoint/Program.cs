@@ -1,9 +1,4 @@
 
-
-using MediatR;
-using Petshop.Application.Baskets.Command.Add;
-using System.Reflection;
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
@@ -14,8 +9,8 @@ builder.Services.AddScoped<ProductRepository, EfProductRepository>();
 builder.Services.AddScoped<CategoryRepository, EfCategoryRepository>();
 builder.Services.AddScoped<OrderRepository, EFOrderRepository>();
 builder.Services.AddScoped<OrderInfoRepository, EFOrderInfoRepository>();
-builder.Services.AddScoped<PaymentService, EFPayIrService>();
 builder.Services.AddScoped<OrderInfoService, EFOrderInfoService>();
+builder.Services.AddScoped<PaymentService, EFPayIrService>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();

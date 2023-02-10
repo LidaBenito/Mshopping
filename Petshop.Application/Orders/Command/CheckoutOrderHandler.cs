@@ -35,24 +35,26 @@ class CheckoutOrderHandler : CommandHandler<CheckoutOrderCommand, int>
 				PaymentDate = DateTime.Today,
 
 			};
-			orderRepository.Save(order);
-			AddOrderDetails(command, order);
-			orderRepository.UpdateOrder(order);
+            order.OrdersInfo = new List<OrderInfo>(6);
+            orderRepository.AddOrder(order);
+			 AddOrderDetails(command, order);
+		
+			 orderRepository.UpdateOrder(order);
 
 			basket.Clear();
 		}
 
 
-		return OkAsyc(order.Id);
+		return  OkAsyc(order.Id);
 	}
 
-	private void AddOrderDetails(CheckoutOrderCommand command, Order order)
+	private  void AddOrderDetails(CheckoutOrderCommand command, Order order)
 	{
 
-		order.OrdersInfo = new List<OrderInfo>();
+		
 		foreach (var item in basket.Items)
 		{
-			order.OrdersInfo.Add(new OrderInfo
+			 order.OrdersInfo.Add(new OrderInfo
 			{
 				Product = item.Product,
 				Quantity = item.Quantity,
