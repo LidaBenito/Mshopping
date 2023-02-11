@@ -1,58 +1,53 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using Petshop.Contract.Products;
-using Petshop.Core.Baskets;
-using Petshop.Endpoint.Models.Baskets;
-using Petshop.Infra.Products;
+﻿
+namespace Petshop.Endpoint.Controllers;
 
-namespace Petshop.Endpoint.Controllers
+public class BasketController : Controller
 {
-    public class BasketController : Controller
-    {
-        private readonly ProductRepository productRepository;
+	private readonly Basket sessionBasket;
+	private readonly IMediator _mediator;
+	private readonly IMapper _mapper;
+	public BasketController(Basket sessionBasket, IMediator mediator, IMapper mapper)
+	{
+		this.sessionBasket = sessionBasket;
+		_mediator = mediator;
+		_mapper = mapper;
+	}
+	public IActionResult Index(string returnUrl)
+	{
+		BasketViewModel viewModel = new()
+		{
+			Basket = sessionBasket,
+			returnURL = returnUrl
 
-        public BasketController(ProductRepository productRepository)
-        {
-            this.productRepository = productRepository;
-        }
-        public IActionResult Index(string returnUrl)
-        {
-            BasketViewModel viewModel = new()
-            {
-                Basket = GetBasket(),
-                returnURL = returnUrl
+		};
+		return View(viewModel);
+	}
+	public IActionResult AddToBasket(int productId, string returnUrl)
+	{
 
-            };
-            return View(viewModel);
-        }
-        //[HttpPost]
-        public IActionResult AddToBasket(int productId, string returnUrl)
-        {
-            var product = productRepository.GetProduct(productId);
-            var basket = GetBasket();
-            basket.AddItem(1, product);
-            SaveBasket(basket);
-            return RedirectToAction("Index", new {returnUrl=returnUrl});
+		AddBasketCommand addProduct = new() { productId=productId};
+		var productResult = _mediator.Send(addProduct).Result;
+		if (productResult.IsSuccess)
+		{
+			return RedirectToAction(nameof(Index), new { returnUrl = returnUrl });
 
-        }
+		}
+		else
+		{
+			ModelState.AddModelError(string.Empty, productResult.Error);
+		}
+		return View();
+	}
 
 
 
-        public IActionResult RemoveFromBasket()
-        {
-            return RedirectToAction("Index");
+	public IActionResult RemoveFromBasket(int productId, string returnUrl)
+	{
+		RemoveBasketCommand removeProduct = new() { productId = productId };
+		var removeResult = _mediator.Send(removeProduct).Result;
+		
+		return RedirectToAction("Index", new { returnUrl = returnUrl });
 
-        }
-        private Basket GetBasket()
-        {
-            var currentBasket = HttpContext.Session.GetString("Basket");
-            if (string.IsNullOrEmpty(currentBasket))
-                return new Basket();
-            return JsonConvert.DeserializeObject<Basket>(currentBasket);
-        }
-        private void SaveBasket(Basket basket)
-        {
-            HttpContext.Session.SetString("Basket", JsonConvert.SerializeObject(basket));
-        }
-    }
+	}
+
 }

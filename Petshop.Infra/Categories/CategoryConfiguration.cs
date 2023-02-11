@@ -14,17 +14,17 @@ namespace Petshop.Infra.Categories
                 new Category
                 {
                     CategoryId = 1,
-                    Name = "accessory"
+                    Name = "لوازم ضروری"
                 },
                 new Category
                 {
                     CategoryId = 2,
-                    Name = "food"
+                    Name = "غذا"
                 },
                 new Category
                 {
                     CategoryId = 3,
-                    Name = "bath"
+                    Name = "شستشو"
                 }
                 );
 

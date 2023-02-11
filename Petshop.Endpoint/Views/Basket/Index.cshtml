@@ -1,21 +1,52 @@
 ﻿@model BasketViewModel
 
-<table>
-<tr>
-	<td>نام</td>
-	<td>قیمت</td>
-	<td>تعداد</td>
-</tr>	
+<div class="content">
+	
+	<table class="table table-hover">
+		<tr>
+			<th>نام</th>
+			<th>قیمت</th>
+			<th>تعداد</th>
+			<th>مبلغ</th>
+			<th>حذف</th>
+		</tr>
 
-@foreach(var item in Model.Basket.Items){
-	<tr>
-		<td>@item.Product.Name</td>
-		<td>@item.Product.Price</td>
-		<td>@item.Quantity</td>
-	</tr>
-}
-<tr>
-	<td > جمع کل :</td>
-	<td colspan="2">@Model.Basket.TotalPrice()</td>
-</tr>
-</table>
+		@foreach (var item in Model.Basket.Items)
+		{
+			<tr>
+				<td>@item.Product.Name</td>
+				<td>@item.Product.Price</td>
+				<td>@item.Quantity</td>
+				<td>@(item.Quantity * item.Product.Price)</td>
+				<td>
+					<form asp-controller="Basket" asp-action="RemoveFromBasket" method="post">
+						<input type="hidden" value="@item.Product.Id" name="productId" />
+						<input type="hidden" value="@Model.returnURL" name="returnUrl" />
+						<input type="submit" value="حذف" class="btn btn-danger "/>
+					</form>
+				</td>
+			</tr>
+		}
+		<tr>
+			<td> جمع کل :</td>
+			<td colspan="2">@Model.Basket.TotalPrice()</td>
+		</tr>
+	</table>
+	<div class="text-center">
+		@if(Model.Basket.Items.Any()){
+
+		<a class="btn btn-primary" asp-action="Checkout" asp-controller="Order" >
+		  <i class="icon-shopping-cart icon-large"></i>
+		  تسویه حساب
+		  </a>
+		}
+		<a class="btn btn-info" href="@Model.returnURL">
+			<i class="icon-repeat"></i> 
+		ادامه</a>
+
+	</div>
+</div>
+
+
+
+

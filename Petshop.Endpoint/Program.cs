@@ -1,9 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using Petshop.Contract.Categories;
-using Petshop.Contract.Products;
-using Petshop.Infra.Categories;
-using Petshop.Infra.Common;
-using Petshop.Infra.Products;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +7,17 @@ var cnn = builder.Configuration.GetConnectionString("BentiStore");
 builder.Services.AddDbContext<BentiShopContext>(options => options.UseSqlServer(cnn));
 builder.Services.AddScoped<ProductRepository, EfProductRepository>();
 builder.Services.AddScoped<CategoryRepository, EfCategoryRepository>();
+builder.Services.AddScoped<OrderRepository, EFOrderRepository>();
+builder.Services.AddScoped<OrderInfoRepository, EFOrderInfoRepository>();
+builder.Services.AddScoped<OrderInfoService, EFOrderInfoService>();
+builder.Services.AddScoped<PaymentService, EFPayIrService>();
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+builder.Services.AddScoped<Basket>(c => SessionBasket.GetBasket(c));
+builder.Services.AddMediatR(typeof(AddBasketHandler).Assembly);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
 
 var app = builder.Build();
 
@@ -33,7 +36,7 @@ app.UseSession();
 
 app.UseRouting();
 
-app.UseAuthorization(); 
+app.UseAuthorization();
 
 app.UseEndpoints(endpoint =>
 

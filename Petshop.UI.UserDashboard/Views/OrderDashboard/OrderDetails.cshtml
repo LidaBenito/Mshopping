@@ -1,0 +1,88 @@
+﻿@model OrderDetailsViewModel
+
+<div class="container-fluid pt-4 px-4">
+	<div class="col-sm-12 col-xl-12">
+		<div class="bg-secondary rounded h-100 p-4">
+			<h6 class="mb-4">مشخصات مشتری</h6>
+			<form>
+				<div class="row mb-3">
+					<label for="inputEmail3" class="col-sm-2 col-form-label">نام :</label>
+					<div class="col-sm-3">
+						<span id="inputEmail3">@Model.FullName</span>
+					</div>
+					<label for="inputPassword3" class="col-sm-2 col-form-label">کشور:</label>
+					<div class="col-sm-5">
+						<span id="inputEmail3">@Model.Country</span>
+					</div>
+				</div>
+
+				<div class="row mb-3">
+					<label for="inputPassword3" class="col-sm-2 col-form-label">شهر:</label>
+					<div class="col-sm-3">
+						<span id="inputEmail3">@Model.City</span>
+					</div>
+					<label for="inputPassword3" class="col-sm-2 col-form-label">استان:</label>
+					<div class="col-sm-5">
+						<span id="inputEmail3">@Model.State</span>
+					</div>
+
+				</div>
+				<div class="row mb-3">
+				</div><div class="row mb-3">
+					<label for="inputPassword3" class="col-sm-2 col-form-label">آدرس اول</label>
+					<div class="col-sm-10">
+						<span id="inputEmail3">@Model.Address</span>
+					</div>
+				</div><div class="row mb-3">
+					<label for="inputPassword3" class="col-sm-2 col-form-label">آدرس دوم</label>
+					<div class="col-sm-10">
+						<span id="inputEmail3">@Model.Address2</span>
+					</div>
+
+				</div>
+
+			</form>
+		</div>
+	</div>
+	<div class="col-sm-12 col-xl-6 tblOrder">
+		<div class="bg-secondary rounded h-100 p-4">
+			<h6 class="mb-4">جزییات سفارش </h6>
+
+
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th scope="col"> نام محصول </th>
+						<th scope="col">تعداد</th>
+						<th scope="col">قیمت</th>
+						<th scope="col">تایید ارسال</th>
+					</tr>
+				</thead>
+				<tbody>
+
+					@foreach (var item in Model.OrdersInfo)
+					{
+
+						<tr>
+							<th scope="row">@item.Product.Name</th>
+							<td>@item.Quantity</td>
+							<td>@item.TotalPrice</td>
+							<a asp-route-itemid="@item.Id" id="getId" hidden></a>
+							<td colspan="6">
+								<button  asp-route-Id="@item.Id" class="btn btn-outline-primary mb-3">
+									تایید
+								</button>
+								<a asp-route-Id="@item.Id" asp-action="DeleteOrder" asp-controller="OrderDashboard"
+								class="btn btn-outline-danger mb-3">
+									حذف
+								</a>
+							</td>
+						</tr>
+					}
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div>

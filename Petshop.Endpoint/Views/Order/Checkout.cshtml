@@ -1,0 +1,49 @@
+﻿@model CheckoutViewModel
+<div class="content">
+	<h2>
+	پرداخت
+</h2>
+<p>لطفا اطلاعات خود را وارد کنید</p>
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="Checkout" method="post" asp-controller="Order" class="frmcheckout">
+	
+	<div class="form-group">
+		<lable>نام و نام خانوادگی:</lable>
+		<input asp-for="FullName"class="form-control"/>
+	</div>
+	<div class="form-group">
+		<lable>کشور:</lable>
+		<input asp-for="Country"class="form-control"/>
+	</div>
+		<div class="form-group">
+			<lable>استان:</lable>
+			<input asp-for="State" class="form-control" />
+		</div>
+	<div class="form-group">
+		<lable>شهر:</lable>
+		<input asp-for="City"class="form-control"/>
+	</div>
+	<div class="form-group">
+		<lable>آدرس:</lable>
+		<input asp-for="Address"class="form-control"/>
+	</div><div class="form-group">
+		<lable>آدرس:</lable>
+		<input asp-for="Address2"class="form-control"/>
+	</div><div class="form-group">
+		<lable>کد پستی:</lable>
+		<input asp-for="Zip"class="form-control" type="number"/>
+	</div>
+		
+	<div class="checkbox">
+		<lable>تعداد
+		</lable>
+		<input asp-for="GiftWrap"/>
+
+	</div>
+	<div class="text-center">
+	
+		<input type="submit" class="btn btn-info"  value="اتمام خرید"/>
+	</div>
+
+</form>
+</div>
