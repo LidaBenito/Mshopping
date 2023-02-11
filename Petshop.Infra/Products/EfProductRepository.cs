@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Petshop.Contract.Products;
-using Petshop.Core.Categories;
 using Petshop.Core.Products;
 using Petshop.Infra.Common;
 using Petshop.Utility.Paginations;
@@ -16,9 +15,13 @@ namespace Petshop.Infra.Products
             this.dbContext = dbContext;
         }
 
+		public void AddProduct(Product product)
+		{
+            dbContext.Products.Add(product);
+            dbContext.SaveChanges();
+		}
 
-
-        public PagedData<Product> GetAllProducts(int pageNumber, int pageSize,string category) {
+		public PagedData<Product> GetAllProducts(int pageNumber, int pageSize,string category) {
             PagedData<Product> result = new ()
             {
                 PageInfo = new PageInfo

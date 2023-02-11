@@ -2,21 +2,18 @@
 
 public class OrderDashboardController : Controller
 {
-    private readonly OrderRepository orderRepository;
-    private readonly OrderInfoRepository orderInfoRepository;
+    
     private readonly IMapper _mapper;
     private readonly IMediator _mediator;
 
-	public OrderDashboardController(OrderRepository orderRepository, IMapper mapper, OrderInfoRepository orderInfoRepository, IMediator mediator)
+	public OrderDashboardController(IMapper mapper, IMediator mediator)
 	{
-		this.orderRepository = orderRepository;
 		this._mapper = mapper;
-		this.orderInfoRepository = orderInfoRepository;
 		this._mediator = mediator;
 	}
 	public IActionResult OrderList()
     {
-        var orders = _mediator.Send(new GetAllOrderListQuery()).GetAwaiter().GetResult();
+        var orders = _mediator.Send(new GetOrdersListQuery()).GetAwaiter().GetResult();
 
         List<OrderListViewModel> model = _mapper.Map<List<OrderListViewModel>>(orders);
       

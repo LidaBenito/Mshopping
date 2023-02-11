@@ -8,6 +8,7 @@ namespace Petshop.Contract.Products
         PagedData<Product> GetAllProducts(int pageNumber,int pageSize,string category);
         Product GetProduct(int productId);
         List<Product> GetProducts();
+        void AddProduct(Product product);
 
     }
 }

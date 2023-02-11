@@ -3,14 +3,13 @@ namespace Petshop.Endpoint.Controllers;
 
 public class OrderController : BaseController
 {
-    private readonly OrderRepository orderRepository;
     private readonly Basket basket;
 	private readonly IMediator _mediator;
 	private readonly IMapper _mapper;
 
-	public OrderController(OrderRepository orderRepository, Basket basket, IMapper mapper, IMediator mediator)
+	public OrderController(Basket basket, IMapper mapper, IMediator mediator)
 	{
-		this.orderRepository = orderRepository;
+		
 		this.basket = basket;
 		_mapper = mapper;
 		_mediator = mediator;

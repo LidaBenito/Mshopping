@@ -4,7 +4,7 @@ using Petshop.Utility.MediatRHelper;
 
 namespace Petshop.Application.Payments.Query.PaymentRequest;
 
-public class RequestPaymentQuery : IQuery<RequestPaymentResult>
+public class GetRequestPaymentQuery : IQuery<RequestPaymentResult>
 {
     public int Id { get; set; }
 

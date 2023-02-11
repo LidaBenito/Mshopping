@@ -13,5 +13,11 @@ namespace Petshop.Infra.Categories
             this.dbContext = dbContext;
         }
         public List<Category> GetAllCategories() => dbContext.Categories.ToList();
-    }
+
+		public Category GetCategory(int id)
+		{
+            var category=dbContext.Categories.FirstOrDefault(c => c.CategoryId == id);
+            return category;
+		}
+	}
 }

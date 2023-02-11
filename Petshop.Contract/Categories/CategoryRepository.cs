@@ -5,6 +5,7 @@ namespace Petshop.Contract.Categories
     public interface CategoryRepository
     {
         List<Category> GetAllCategories();
+        Category GetCategory(int id);
 
 
     }

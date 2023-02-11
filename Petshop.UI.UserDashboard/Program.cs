@@ -17,7 +17,7 @@ builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<Basket>(c => SessionBasket.GetBasket(c));
-builder.Services.AddMediatR(typeof(GetAllOrderListHandler).Assembly);
+builder.Services.AddMediatR(typeof(GetOrdersListHandler).Assembly);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 

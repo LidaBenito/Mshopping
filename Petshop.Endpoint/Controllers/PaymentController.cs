@@ -15,7 +15,7 @@ public class PaymentController : BaseController
 	[HttpPost]
     public IActionResult RequestPayment(int Id)
     {
-        RequestPaymentQuery requestResult = new() { Id = Id };
+        GetRequestPaymentQuery requestResult = new() { Id = Id };
         var result = _mediator.Send(requestResult).GetAwaiter().GetResult();
         if (result.IsNotNull())
         {

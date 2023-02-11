@@ -14,7 +14,7 @@ public class HomeController : Controller
 
     public IActionResult Index(string category = "", int pageNumber = 1)
     {
-        var viewModel = new ProductIndexViewModel
+		ProductIndexViewModel viewModel = new ()
         {
             Search = category,
             Data = productRepository.GetAllProducts(pageNumber, pageSize, category)
