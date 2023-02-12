@@ -1,0 +1,47 @@
+﻿@model List<Product>
+<div class="container-fluid pt-4 px-4">
+
+	<h6 class="mb-4">لیست محصول ها</h6>
+	<button class="btn btn-success shadow btnAddProduct" asp-action="Add" asp-controller="ProductDashboard">
+		افزودن محصول
+	</button>
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th scope="col"></th>
+				<th scope="col">نام محصول</th>
+				<th scope="col">کد </th>
+				<th scope="col">نام دسته بندی</th>
+				<th scope="col">قیمت</th>
+				<th scope="col">توضیحات</th>
+				<th scope="col" colspan="4">عملیات</th>
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+
+					<td>
+						<img class="rounded-circle flex-shrink-0" src="@item.Image"
+						 alt="@item.Name" style="width: 40px; height: 40px;" />
+
+					</td>
+					<td>@item.Name</td>
+					<td>@item.CategoryId</td>
+					<td>@item.Category.Name</td>
+					<td>@item.Price</td>
+					<td>@item.Description</td>
+					<td colspan="4">
+						<a href="#" class="btn btn-sm-square btn-danger ">ویرایش</a>
+						<a href="#" class="btn btn-sm-square btn-danger ">حذف</a>
+					</td>
+				</tr>
+
+			}
+
+
+
+		</tbody>
+	</table>
+</div>

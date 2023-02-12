@@ -1,0 +1,56 @@
+﻿@model ProductViewModel
+<div class="container-fluid pt-4 px-4">
+	<div class="row g-4">
+		<div class="col-sm-12 col-xl-12">
+			<div class="bg-secondary rounded h-100 p-4">
+				<h6 class="mb-4">فرم ورود اطلاعات محصول</h6>
+				<form method="post" asp-action="Add" asp-controller="ProductDashboard">
+					<div class="mb-3">
+						<div class="mb-3">
+							<label class="form-label">نام محصول</label>
+							<input type="text" class="form-control">
+							<div class="form-text">
+								نام محصول را وارد کنید
+							</div>
+						</div>
+					</div>
+					<div class="mb-3">
+						<div class="mb-3">
+							<label class="form-label">قیمت محصول</label>
+							<input type="number" class="form-control">
+							<div class="form-text">
+								قیمت محصول را وارد کنید
+							</div>
+						</div>
+					</div>
+					<div class="mb-3">
+						<label for="formFile" class="form-label">عکس محصول را انتخاب کنید</label>
+						<input class="form-control bg-dark" type="file" id="formFile">
+					</div>
+
+					<div class="mb-3">
+						<textarea class="form-control" placeholder="درباره محصول"
+								  id="floatingTextarea" style="height: 150px;"></textarea>
+					</div>
+
+					<div class="mb-3">
+
+						<div class="form-floating mb-3">
+							<select class="form-select" id="floatingSelect"
+									aria-label="Floating label select " asp-for="CategoryId">
+								<option selected>دسته بندی را انتخاب کنبد</option>
+								@foreach (var item in Model.CategoryForDisplay)
+								{
+
+									<option value="@item.CategoryId">@item.Name</option>
+								}
+								<label asp-for="@Model.CategoryId"></label>
+
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

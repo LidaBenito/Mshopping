@@ -1,15 +1,12 @@
-﻿using Petshop.Application.Products.Command.Add;
-using Petshop.Application.Products.Query;
-using Petshop.UI.UserDashboard.Models.Products;
-
-namespace Petshop.UI.UserDashboard.Controllers;
+﻿namespace Petshop.UI.UserDashboard.Controllers;
 
 public class ProductDashboardController : Controller
 {
 	private readonly CategoryRepository categoryRepository;
 	private readonly IMapper mapper;
 	private readonly IMediator  mediator;
-	public ProductDashboardController(CategoryRepository categoryRepository, IMapper mapper, IMediator mediator)
+	public ProductDashboardController(CategoryRepository categoryRepository, IMapper mapper,
+		IMediator mediator)
 	{
 		this.categoryRepository = categoryRepository;
 		this.mapper = mapper;
@@ -22,14 +19,14 @@ public class ProductDashboardController : Controller
 	}
 	public IActionResult Add()
 	{
-		AddProductViewModel viewModel = new()
+		ProductViewModel viewModel = new()
 		{
 			CategoryForDisplay = categoryRepository.GetAllCategories()
 		};
 		return View(viewModel);
 	}
 	[HttpPost]
-	public IActionResult Add(AddProductViewModel model)
+	public IActionResult Add(ProductViewModel model)
 	{
 		if (ModelState.IsValid)
 		{

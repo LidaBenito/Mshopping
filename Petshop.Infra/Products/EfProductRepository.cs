@@ -4,42 +4,41 @@ using Petshop.Core.Products;
 using Petshop.Infra.Common;
 using Petshop.Utility.Paginations;
 
-namespace Petshop.Infra.Products
-{
-    public class EfProductRepository : ProductRepository
-    {
-        private readonly BentiShopContext dbContext;
+namespace Petshop.Infra.Products;
 
-        public EfProductRepository(BentiShopContext dbContext)
-        {
-            this.dbContext = dbContext;
-        }
+public class EfProductRepository : ProductRepository
+{
+    private readonly BentiShopContext dbContext;
+
+    public EfProductRepository(BentiShopContext dbContext)
+    {
+        this.dbContext = dbContext;
+    }
 
 		public void AddProduct(Product product)
 		{
-            dbContext.Products.Add(product);
-            dbContext.SaveChanges();
+        dbContext.Products.Add(product);
+        dbContext.SaveChanges();
 		}
 
 		public PagedData<Product> GetAllProducts(int pageNumber, int pageSize,string category) {
-            PagedData<Product> result = new ()
+        PagedData<Product> result = new ()
+        {
+            PageInfo = new PageInfo
             {
-                PageInfo = new PageInfo
-                {
-                    PageNumber = pageNumber,
-                    PageSize = pageSize
-                }
-            };
-            result.Data= dbContext.Products.Include(product => product.Category).Where(c=> string.IsNullOrWhiteSpace(category)
-            || c.Category.Name == category).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-            result.PageInfo.TotalCount = dbContext.Products.Where(c => string.IsNullOrWhiteSpace(category)
-            || c.Category.Name == category).Count();
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            }
+        };
+        result.Data= dbContext.Products.Include(product => product.Category).Where(c=> string.IsNullOrWhiteSpace(category)
+        || c.Category.Name == category).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+        result.PageInfo.TotalCount = dbContext.Products.Where(c => string.IsNullOrWhiteSpace(category)
+        || c.Category.Name == category).Count();
 
-            return result;
-        }
-
-        public Product GetProduct(int productId) => dbContext.Products.FirstOrDefault(productid => productid.Id == productId);
-
-        public List<Product> GetProducts() => dbContext.Products.ToList();
+        return result;
     }
+
+    public Product GetProduct(int productId) => dbContext.Products.FirstOrDefault(productid => productid.Id == productId);
+
+    public List<Product> GetProducts() => dbContext.Products.Include(c=>c.Category).OrderBy(c=>c.CategoryId).ToList();
 }
