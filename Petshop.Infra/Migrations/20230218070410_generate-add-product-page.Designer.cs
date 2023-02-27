@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Petshop.Infra.Common;
 
@@ -11,9 +12,10 @@ using Petshop.Infra.Common;
 namespace Petshop.Infra.Migrations
 {
     [DbContext(typeof(BentiShopContext))]
-    partial class BentiShopContextModelSnapshot : ModelSnapshot
+    [Migration("20230218070410_generate-add-product-page")]
+    partial class generateaddproductpage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,7 +160,7 @@ namespace Petshop.Infra.Migrations
                     b.ToTable("PaymentOrder");
                 });
 
-            modelBuilder.Entity("Petshop.Core.Products.Imagee", b =>
+            modelBuilder.Entity("Petshop.Core.Products.Image", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -178,7 +180,7 @@ namespace Petshop.Infra.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("Imagees");
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("Petshop.Core.Products.Product", b =>
@@ -240,11 +242,11 @@ namespace Petshop.Infra.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Petshop.Core.Products.Imagee", b =>
+            modelBuilder.Entity("Petshop.Core.Products.Image", b =>
                 {
                     b.HasOne("Petshop.Core.Products.Product", null)
-                        .WithOne("Imagee")
-                        .HasForeignKey("Petshop.Core.Products.Imagee", "ProductId")
+                        .WithOne("Images")
+                        .HasForeignKey("Petshop.Core.Products.Image", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -272,7 +274,7 @@ namespace Petshop.Infra.Migrations
 
             modelBuilder.Entity("Petshop.Core.Products.Product", b =>
                 {
-                    b.Navigation("Imagee")
+                    b.Navigation("Images")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

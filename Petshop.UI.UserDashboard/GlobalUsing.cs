@@ -22,3 +22,6 @@ global using Petshop.Application.Orders.OrderInfos.Command;
 global using Petshop.Application.Orders.Query;
 global using Petshop.Application.Orders.Query.Dashboard;
 global using Petshop.UI.UserDashboard.Models.Orders;
+global using Petshop.Application.Products.Command.Add;
+global using Petshop.Application.Products.Query;
+global using Petshop.UI.UserDashboard.Models.Products;

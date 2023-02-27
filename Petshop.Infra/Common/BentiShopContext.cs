@@ -12,6 +12,7 @@ namespace Petshop.Infra.Common
         public DbSet<Category> Categories { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderInfo>  OrderInfos { get; set; }
+        public DbSet<Imagee> Imagees{ get; set; }
 
 
         public BentiShopContext(DbContextOptions options) : base(options)

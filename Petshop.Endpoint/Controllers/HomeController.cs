@@ -1,25 +1,35 @@
 ﻿
+using Microsoft.Extensions.Options;
+using Petshop.Application.Products.Query;
+using Petshop.Utility.Paginations;
+using System.Security.Cryptography;
+
 namespace Petshop.Endpoint.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly ILogger<HomeController> _logger;
-    private readonly ProductRepository productRepository;
-    private int pageSize = 2;
-    public HomeController(ILogger<HomeController> logger, ProductRepository productRepository)
-    {
-        _logger = logger;
-        this.productRepository = productRepository;
-    }
+   
+    private readonly PageInfo pageInfo;
+	private readonly IMediator _mediator;
+	private readonly IMapper _mapper;
+	public HomeController(IOptions<PageInfo> pageInfo, IMapper mapper, IMediator mediator)
+	{
 
-    public IActionResult Index(string category = "", int pageNumber = 1)
+		this.pageInfo = pageInfo.Value;
+		_mapper = mapper;
+		_mediator = mediator;
+	}
+
+	public IActionResult Index(string category = "", int pageNumber = 1)
     {
-		ProductIndexViewModel viewModel = new ()
+        var products = _mediator.Send(new GetProductsQuery()
         {
-            Search = category,
-            Data = productRepository.GetAllProducts(pageNumber, pageSize, category)
-        };
-        return View(viewModel);
+            PageNumber = pageNumber,
+            PageSize = pageInfo.PageSize,
+            Search = category
+        }).GetAwaiter().GetResult();
+		
+        return View(products);
     }
 
     public IActionResult Privacy()

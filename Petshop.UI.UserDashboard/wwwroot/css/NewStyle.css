@@ -1,0 +1,8 @@
+﻿.btnAddProduct:hover{
+    background-color:none;
+    border:1px  solid green; 
+    box-shadow:5px 4px inset;
+}
+.container-fluid{
+    direction:rtl !important;
+}

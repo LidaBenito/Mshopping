@@ -7,7 +7,7 @@ namespace Petshop.UI.UserDashboard.Helpers.MapperProfiles.Products
 	{
 		public ProductProfile()
 		{
-			CreateMap<AddProductViewModel, AddProductCommand>();
+			CreateMap<ProductViewModel, AddProductCommand>();
 		}
 	}
 }

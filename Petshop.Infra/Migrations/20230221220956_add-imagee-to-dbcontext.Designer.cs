@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Petshop.Infra.Common;
 
@@ -11,9 +12,10 @@ using Petshop.Infra.Common;
 namespace Petshop.Infra.Migrations
 {
     [DbContext(typeof(BentiShopContext))]
-    partial class BentiShopContextModelSnapshot : ModelSnapshot
+    [Migration("20230221220956_add-imagee-to-dbcontext")]
+    partial class addimageetodbcontext
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

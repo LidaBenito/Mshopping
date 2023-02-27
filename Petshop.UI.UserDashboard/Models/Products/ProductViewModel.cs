@@ -2,7 +2,7 @@
 
 namespace Petshop.UI.UserDashboard.Models.Products;
 
-public class AddProductViewModel
+public class ProductViewModel
 {
 	
 	public string Name { get; set; }
