@@ -1,10 +1,10 @@
-﻿@model List<Product>
+﻿@model PagedData<Product>
 <div class="container-fluid pt-4 px-4">
 
 	<h6 class="mb-4">لیست محصول ها</h6>
-	<button class="btn btn-success shadow btnAddProduct" asp-action="Add" asp-controller="ProductDashboard">
+	<a class="btn btn-success shadow btnAddProduct" asp-action="Add" asp-controller="ProductDashboard">
 		افزودن محصول
-	</button>
+	</a>
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -18,13 +18,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			@foreach (var item in Model)
+			@foreach (var item in Model.Data)
 			{
 				<tr>
 
 					<td>
-						<img class="rounded-circle flex-shrink-0" src="@item.Image"
-						 alt="@item.Name" style="width: 40px; height: 40px;" />
+						<img class="rounded-circle flex-shrink-0" src="@item.Imagee.Img"
+						 alt="@item.Name" style="width: 50px; height: 50px;" />
 
 					</td>
 					<td>@item.Name</td>
@@ -33,8 +33,8 @@
 					<td>@item.Price</td>
 					<td>@item.Description</td>
 					<td colspan="4">
-						<a href="#" class="btn btn-sm-square btn-danger ">ویرایش</a>
-						<a href="#" class="btn btn-sm-square btn-danger ">حذف</a>
+						<a href="#" class="btn btn-infp ">ویرایش</a>
+						<a href="#" class="btn btn-danger ">حذف</a>
 					</td>
 				</tr>
 

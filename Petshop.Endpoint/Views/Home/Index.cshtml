@@ -1,11 +1,11 @@
-﻿@model ProductIndexViewModel
+﻿@model PagedData<Product>
 <div class="content">
 
     <div class="row">
        
 
     <ul>
-        @foreach (var item in Model.Data.Data)
+        @foreach (var item in Model.Data)
         {
 
                 @Html.Partial("PartialIndexsummery",item);
@@ -14,7 +14,7 @@
     </ul>
     </div>
     
-    <div class="btn-group m-1" page-model="@Model.Data.PageInfo" page-action="Index"
+    <div class="btn-group m-1" page-model="@Model.PageInfo" page-action="Index"
          page-classes-enable="true" page-class="btn "
     page-class-normal="btn-outline-dark" page-class-selected="btn-info">
 

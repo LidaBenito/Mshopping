@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Petshop.Infra.Common;
 
@@ -11,9 +12,10 @@ using Petshop.Infra.Common;
 namespace Petshop.Infra.Migrations
 {
     [DbContext(typeof(BentiShopContext))]
-    partial class BentiShopContextModelSnapshot : ModelSnapshot
+    [Migration("20230214134542_add-image-class")]
+    partial class addimageclass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -158,7 +160,7 @@ namespace Petshop.Infra.Migrations
                     b.ToTable("PaymentOrder");
                 });
 
-            modelBuilder.Entity("Petshop.Core.Products.Imagee", b =>
+            modelBuilder.Entity("Petshop.Core.Products.Image", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -178,7 +180,7 @@ namespace Petshop.Infra.Migrations
                     b.HasIndex("ProductId")
                         .IsUnique();
 
-                    b.ToTable("Imagees");
+                    b.ToTable("Image");
                 });
 
             modelBuilder.Entity("Petshop.Core.Products.Product", b =>
@@ -197,6 +199,9 @@ namespace Petshop.Infra.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -210,6 +215,64 @@ namespace Petshop.Infra.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            Description = "قلاده",
+                            Name = "pro01",
+                            Price = 10000000
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 2,
+                            Description = "غذای خشک",
+                            Name = "pro02",
+                            Price = 200000
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 3,
+                            Description = "حوله",
+                            Name = "pro03",
+                            Price = 30000
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            Description = "ظرف آب",
+                            Name = "pro04",
+                            Price = 800000
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 3,
+                            Description = "کنسرو",
+                            Name = "pro05",
+                            Price = 30000
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 3,
+                            Description = "شامپو",
+                            Name = "pro06",
+                            Price = 30000
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 1,
+                            Description = "کفش",
+                            Name = "pro07",
+                            Price = 3000000
+                        });
                 });
 
             modelBuilder.Entity("Petshop.Core.Orders.Order", b =>
@@ -240,11 +303,11 @@ namespace Petshop.Infra.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Petshop.Core.Products.Imagee", b =>
+            modelBuilder.Entity("Petshop.Core.Products.Image", b =>
                 {
                     b.HasOne("Petshop.Core.Products.Product", null)
-                        .WithOne("Imagee")
-                        .HasForeignKey("Petshop.Core.Products.Imagee", "ProductId")
+                        .WithOne("Images")
+                        .HasForeignKey("Petshop.Core.Products.Image", "ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -272,7 +335,7 @@ namespace Petshop.Infra.Migrations
 
             modelBuilder.Entity("Petshop.Core.Products.Product", b =>
                 {
-                    b.Navigation("Imagee")
+                    b.Navigation("Images")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

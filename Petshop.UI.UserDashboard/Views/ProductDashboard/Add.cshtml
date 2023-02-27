@@ -4,11 +4,11 @@
 		<div class="col-sm-12 col-xl-12">
 			<div class="bg-secondary rounded h-100 p-4">
 				<h6 class="mb-4">فرم ورود اطلاعات محصول</h6>
-				<form method="post" asp-action="Add" asp-controller="ProductDashboard">
+				<form method="post" asp-action="Add" asp-controller="ProductDashboard" enctype="multipart/form-data">
 					<div class="mb-3">
 						<div class="mb-3">
 							<label class="form-label">نام محصول</label>
-							<input type="text" class="form-control">
+							<input type="text" asp-for="@Model.Name" class="form-control">
 							<div class="form-text">
 								نام محصول را وارد کنید
 							</div>
@@ -17,7 +17,7 @@
 					<div class="mb-3">
 						<div class="mb-3">
 							<label class="form-label">قیمت محصول</label>
-							<input type="number" class="form-control">
+							<input type="number" class="form-control" asp-for="Price">
 							<div class="form-text">
 								قیمت محصول را وارد کنید
 							</div>
@@ -25,11 +25,12 @@
 					</div>
 					<div class="mb-3">
 						<label for="formFile" class="form-label">عکس محصول را انتخاب کنید</label>
-						<input class="form-control bg-dark" type="file" id="formFile">
+						<input class="form-control bg-dark" asp-for="data:image/png;base64,@Model.Image"
+						type="file" id="formFile">
 					</div>
 
 					<div class="mb-3">
-						<textarea class="form-control" placeholder="درباره محصول"
+						<textarea asp-for="Description" class="form-control" placeholder="درباره محصول"
 								  id="floatingTextarea" style="height: 150px;"></textarea>
 					</div>
 
@@ -49,6 +50,10 @@
 							</select>
 						</div>
 					</div>
+					<button class="btn  btn-primary"
+					type="submit" asp-action="Add" asp-controller="ProductDashboard">
+						افزودن
+					</button>
 				</form>
 			</div>
 		</div>

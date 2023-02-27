@@ -13,6 +13,7 @@
 
   <ItemGroup>
     <Folder Include="Categories\" />
+    <Folder Include="Products\Images\Services\" />
   </ItemGroup>
 
 </Project>

@@ -1,5 +1,9 @@
 
+using Petshop.Application.Baskets.Command.Add;
+using Petshop.Contract.Products.Images;
 using Petshop.Core.Baskets;
+using Petshop.Infra.Products.Images;
+using Petshop.Utility.Paginations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,13 +15,15 @@ builder.Services.AddScoped<ProductRepository, EfProductRepository>();
 builder.Services.AddScoped<CategoryRepository, EfCategoryRepository>();
 builder.Services.AddScoped<OrderRepository, EFOrderRepository>();
 builder.Services.AddScoped<OrderInfoRepository, EFOrderInfoRepository>();
+builder.Services.AddScoped<ImageRepository, EFImageRepository>();
 builder.Services.AddScoped<OrderInfoService, EFOrderInfoService>();
 builder.Services.AddScoped<PaymentService, EFPayIrService>();
+builder.Services.Configure<PageInfo>(opt => builder.Configuration.GetSection("PageInfo").Bind(opt));
 builder.Services.AddMemoryCache();
 builder.Services.AddSession();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<Basket>(c => SessionBasket.GetBasket(c));
-builder.Services.AddMediatR(typeof(GetOrdersListHandler).Assembly);
+builder.Services.AddMediatR(typeof(AddBasketHandler).Assembly);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 var app = builder.Build();
 

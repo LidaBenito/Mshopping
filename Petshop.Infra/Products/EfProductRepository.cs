@@ -3,6 +3,7 @@ using Petshop.Contract.Products;
 using Petshop.Core.Products;
 using Petshop.Infra.Common;
 using Petshop.Utility.Paginations;
+using System.Text;
 
 namespace Petshop.Infra.Products;
 
@@ -21,24 +22,22 @@ public class EfProductRepository : ProductRepository
         dbContext.SaveChanges();
 		}
 
-		public PagedData<Product> GetAllProducts(int pageNumber, int pageSize,string category) {
-        PagedData<Product> result = new ()
-        {
-            PageInfo = new PageInfo
-            {
-                PageNumber = pageNumber,
-                PageSize = pageSize
-            }
-        };
-        result.Data= dbContext.Products.Include(product => product.Category).Where(c=> string.IsNullOrWhiteSpace(category)
-        || c.Category.Name == category).Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-        result.PageInfo.TotalCount = dbContext.Products.Where(c => string.IsNullOrWhiteSpace(category)
-        || c.Category.Name == category).Count();
+		public PagedData<Product> GetProducts(PageInfo pageInfo,string category) {
 
-        return result;
+        PagedData<Product> result= new();
+		result.Data = dbContext.Products.Include(s => s.Imagee).Include(product => product.Category).Where(c => string.IsNullOrWhiteSpace(category)
+        || c.Category.Name == category).Skip((pageInfo.PageNumber - 1) * pageInfo.PageSize).Take(pageInfo.PageSize).ToList();
+       
+		result.PageInfo = new();
+		result.PageInfo.TotalCount= dbContext.Products.Count();
+
+
+	
+
+		return result;
     }
 
     public Product GetProduct(int productId) => dbContext.Products.FirstOrDefault(productid => productid.Id == productId);
 
-    public List<Product> GetProducts() => dbContext.Products.Include(c=>c.Category).OrderBy(c=>c.CategoryId).ToList();
+    public List<Product> GetProducts() => dbContext.Products.Include(c=>c.Category).OrderBy(o=>o.CategoryId).Include(z=>z.Imagee).ToList();
 }

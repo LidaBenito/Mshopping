@@ -28,6 +28,7 @@
     <ProjectReference Include="..\Petshop.Contract\Petshop.Contract.csproj" />
     <ProjectReference Include="..\Petshop.Core\Petshop.Core.csproj" />
     <ProjectReference Include="..\Petshop.Infra\Petshop.Infra.csproj" />
+    <ProjectReference Include="..\Petshop.Utility\Petshop.Utility.csproj" />
   </ItemGroup>
 
 </Project>
